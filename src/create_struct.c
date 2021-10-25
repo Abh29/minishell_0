@@ -20,10 +20,13 @@ t_cmd	*ft_new_cmd(void)
 	t_cmd	*out;
 
 	out = malloc(sizeof(t_cmd));
+	if (out == NULL)
+		return (NULL);
 	out->cmd_name = NULL;
 	out->args = NULL;
 	out->envp = NULL;
-	*(out->exit_stat) = -1;
+	out->exit_stat = NULL;
+	out->red = ft_new_io_red();
 	out->ors = NULL;
 	out->ands = NULL;
 	out->pipe = NULL;
@@ -32,6 +35,8 @@ t_cmd	*ft_new_cmd(void)
 
 void	ft_free_io_red(t_io_red **red)
 {
+	if (red == NULL || *red == NULL)
+		return ;
 	if ((*red)->limiter)
 		free((*red)->limiter);
 	free(*red);

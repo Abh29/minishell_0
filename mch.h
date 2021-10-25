@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mch.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/25 19:17:20 by mehill            #+#    #+#             */
+/*   Updated: 2021/10/25 19:41:35 by mehill           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MCH_H
 # define MCH_H
 
@@ -19,6 +31,7 @@
 # include <curses.h>
 # include <term.h>
 # include <termcap.h>
+# include <fcntl.h>
 
 /** defenition ***/
 # define SHELL_NAME "minishell> "
@@ -98,6 +111,7 @@ t_io_red	*ft_new_io_red(void);
 t_cmd		*ft_new_cmd(void);
 void		ft_free_io_red(t_io_red **red);
 void		ft_free_cmd(t_cmd **cmd);
+char		**ft_vectdup(char **vect);
 
 #endif
 
