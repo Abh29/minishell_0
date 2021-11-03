@@ -14,17 +14,20 @@
 
 // dont forget skipped quotes
 
+int	ft_isspace(int c)
+{
+	if (c == ' ' || (c > 8 && c < 14))
+		return (1);
+	return (0);
+}
+
 int	ft_valid_sep(int current, int previous, int *quote)
 {
-	//printf("%c%d|", current, *quote);
-	if (*quote == -1 && previous != '\\' && ft_strchr(" \t\n", current))
+	if (*quote == -1 && previous != '\\' && ft_isspace(current))
 		return (1);
 	if (*quote != -1 && current == *quote && previous != '\\')
-	{
 		*quote = -1;
-		return (0);
-	}
-	if (*quote == -1 && previous != '\\' \
+	else if (*quote == -1 && previous != '\\' \
 	&& (current == '\"' || current == '\''))
 		*quote = current;
 	return (0);
@@ -36,37 +39,73 @@ int	ft_arg_count(char *line)
 	int	qts;
 	int	prev;
 
-	out = 1;
+	out = 0;
 	qts = -1;
 	prev = 0;
+	while (*line && ft_isspace(*line))
+		line++;
 	while (*line)
 	{
-		printf("%c%d|", *line, ft_valid_sep(*line, prev, &qts));
-		if (ft_valid_sep(*line, prev, &qts))
+		while (*line && ft_valid_sep(*line, prev, &qts))
 		{
-			if (*(line + 1) && !ft_valid_sep(*(line + 1), *line, &qts))
-				out++;
+			prev = *line;
+			line++;
 		}
-		prev = *line;
-		line++;
+		if (*line)
+		{
+			prev = *line;
+			line++;
+			out++;
+		}
+		while (*line && ft_valid_sep(*line, prev, &qts) == 0)
+		{
+			prev = *line;
+			line++;
+		}
 	}
 	return (out);
 }
 
-char	**ft_split_cmd(char *line)
+char	**ft_split_args(char *line)
 {
-	(void) line;
-	return (NULL);
-		/*	while (*line && ft_valid_sep(*line, prev, &qts))
-			prev = *line++;
+	int		i;
+	char	**out;
+	char	prev;
+	int		qts;
+	int		w;
+	int		j;
+
+	out = malloc((ft_arg_count(line) + 1) * sizeof(char *));
+	if (out == NULL)
+		return (NULL);
+	qts = -1;
+	prev = 0;
+	w = 0;
+	while (*line)
+	{
+		while (*line && ft_valid_sep(*line, prev, &qts))
+		{
+			prev = *line;
+			line++;
+		}
 		if (*line)
 		{
-			prev = *(line++);
-			if (*line)
-				out++;
+			i = 1;
+			prev = *line;
+			line++;
+			while (*line && ft_valid_sep(*line, prev, &qts) == 0 && i++ > -1)
+			{
+				prev = *line;
+				line++;	
+			}
+			out[w] = malloc(i + 1);
+			line -= i;
+			j = 0;
+			while (j < i)
+				out[w][j++] = *line++;
+			out[w++][i] = 0;			
 		}
-		while (*line && ft_valid_sep(*line, prev, &qts) == 0)
-			prev = *line++;
-		if (*line)
-			line++;*/
+	}
+	out[w] = NULL;
+	return (out);
 }

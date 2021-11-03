@@ -26,6 +26,7 @@
 # include <limits.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+# include <sys/wait.h>
 # include <sys/ioctl.h>
 # include <termios.h>
 # include <curses.h>
@@ -87,6 +88,8 @@ void		ft_free_split(char ***split);
 void		ft_free_args(char ***split, int n);
 t_cmd		*ft_new_cmd(void);
 t_io_red	*ft_new_io_red(void);
+char		**ft_split_args(char *line);
+int			ft_arg_count(char *line);
 
 /** helpers **/
 void		ft_exit(char *msg, int err);
@@ -112,6 +115,10 @@ t_cmd		*ft_new_cmd(void);
 void		ft_free_io_red(t_io_red **red);
 void		ft_free_cmd(t_cmd **cmd);
 char		**ft_vectdup(char **vect);
+
+/** prints ***/
+void		ft_print_splt(char	**spt, int fd);
+
 
 #endif
 
