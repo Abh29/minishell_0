@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 20:36:33 by mehill            #+#    #+#             */
-/*   Updated: 2021/10/22 23:04:16 by mehill           ###   ########.fr       */
+/*   Updated: 2021/11/03 19:00:53 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ void	ft_putdbl_exp_fd_size(double dbl, int fd, \
 		size_t *size, t_options options);
 void	ft_putchar_fd_size_options(char c, int fd, \
 		size_t *size, t_options options);
+char	*ft_strchrs(char *str, char *set);
 
 /** double linked list ***/
 t_dlist	*ft_dlstnew(void *content);

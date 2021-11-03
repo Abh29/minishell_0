@@ -16,6 +16,7 @@ t_cmd	*ft_fill_cmd(char *line, char **argv, char **envp)
 
 	spt = ft_split_args(line);
 	cmd = ft_new_cmd();
+	ft_get_redctn(cmd->red, spt);
 	cmd->cmd_name = ft_which(spt[0], envp);
 	cmd->envp = ft_vectdup(argv);
 	cmd->args = ft_vectdup(spt);

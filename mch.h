@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 19:17:20 by mehill            #+#    #+#             */
-/*   Updated: 2021/10/25 19:41:35 by mehill           ###   ########.fr       */
+/*   Updated: 2021/11/03 21:18:46 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # include <term.h>
 # include <termcap.h>
 # include <fcntl.h>
+# include <errno.h>
 
 /** defenition ***/
 # define SHELL_NAME "minishell> "
@@ -90,12 +91,16 @@ t_cmd		*ft_new_cmd(void);
 t_io_red	*ft_new_io_red(void);
 char		**ft_split_args(char *line);
 int			ft_arg_count(char *line);
+void		ft_get_redout(t_io_red *red, char **args);
+void		ft_get_redin(t_io_red *red, char **args);
+void		ft_get_redctn(t_io_red *red, char **args);
 
 /** helpers **/
 void		ft_exit(char *msg, int err);
 int			ft_max(int a, int b);
 int			ft_min(int a, int b);
 int			ft_abs(int a);
+char		*ft_valid_red(char *arg);
 
 /** stack ***/
 
@@ -118,7 +123,7 @@ char		**ft_vectdup(char **vect);
 
 /** prints ***/
 void		ft_print_splt(char	**spt, int fd);
-
+void		ft_print_io_red(t_io_red *red);
 
 #endif
 
