@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 19:17:20 by mehill            #+#    #+#             */
-/*   Updated: 2021/11/03 21:18:46 by mehill           ###   ########.fr       */
+/*   Updated: 2021/11/05 21:10:08 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ typedef enum e_builtings
 {
 	FT_ECHO,
 	FT_CD,
-	FT_PWD,
 	FT_EXPORT,
 	FT_UNSET,
 	FT_ENV,
@@ -94,6 +93,8 @@ int			ft_arg_count(char *line);
 void		ft_get_redout(t_io_red *red, char **args);
 void		ft_get_redin(t_io_red *red, char **args);
 void		ft_get_redctn(t_io_red *red, char **args);
+t_cmd		*ft_fill_cmd(char *line, char **argv, char **envp);
+t_dlist		*ft_get_cmd_list(char *line, char **argv, char **envp);
 
 /** helpers **/
 void		ft_exit(char *msg, int err);
@@ -120,10 +121,13 @@ t_cmd		*ft_new_cmd(void);
 void		ft_free_io_red(t_io_red **red);
 void		ft_free_cmd(t_cmd **cmd);
 char		**ft_vectdup(char **vect);
+void		ft_free_cmd_list(t_dlist **cmds);
 
 /** prints ***/
 void		ft_print_splt(char	**spt, int fd);
-void		ft_print_io_red(t_io_red *red);
+void		ft_print_io_red(t_io_red *red, int fd);
+void		ft_print_cmd(t_cmd *cmd, int fd);
+void		ft_print_cmd_list(t_dlist *cmds, int fd);
 
 #endif
 

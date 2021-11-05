@@ -2,34 +2,32 @@
 
 void	execute_cmd(t_cmd *cmd)
 {
-	int pid = fork();
+	int	pid;
 
+	pid = fork();
 	if (pid == 0)
 		execv(cmd->cmd_name, cmd->args);
 	return ;
 }
 
-t_cmd	*ft_fill_cmd(char *line, char **argv, char **envp)
+void	execute_cmd_list(t_dlist *cmds)
 {
-	t_cmd	*cmd;
-	char	**spt;
-
-	spt = ft_split_args(line);
-	cmd = ft_new_cmd();
-	ft_get_redctn(cmd->red, spt);
-	cmd->cmd_name = ft_which(spt[0], envp);
-	cmd->envp = ft_vectdup(argv);
-	cmd->args = ft_vectdup(spt);
-	ft_free_split(&spt);
-	return (cmd);
+	while (cmds)
+	{
+		execute_cmd(cmds->content);
+		cmds = cmds->next;
+	}
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	char	pwd[PATH_MAX];
 	char	*line;
-	t_cmd	*cmd;
 	int		status;
+	t_dlist	*lst;
+
+	if (1 && printf("") || printf("1") && printf(""))
+		printf("worked");
 
 	(void) argc;
 	(void) argv;
@@ -55,12 +53,11 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		if (line)
 			line[ft_strlen(line) - 1] = 0;
-		cmd = ft_fill_cmd(line, argv, envp);
-		ft_print_splt(cmd->args, 1);
-		execute_cmd(cmd);
+		lst = ft_get_cmd_list(line, argv, envp);
+		ft_print_cmd_list(lst, 1);
+		execute_cmd_list(lst);
 		while (wait(&status) > 0);
-		ft_free_cmd(&cmd);
-		free(cmd);
+		//ft_free_cmd_list(&lst);
 	}
 	free(line);
 	return (0);
