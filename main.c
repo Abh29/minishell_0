@@ -32,6 +32,8 @@ int	main(int argc, char **argv, char **envp)
 	(void) argc;
 	(void) argv;
 	(void) envp;
+	(void) status;
+	(void) lst;
 	*pwd = 0;
 	getcwd(pwd, sizeof(pwd));
 	printf("cwd : %s\n", pwd);
@@ -53,8 +55,9 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		if (line)
 			line[ft_strlen(line) - 1] = 0;
+		//printf("%s\n", ft_expand_dollar(line));
 		lst = ft_get_cmd_list(line, argv, envp);
-		ft_print_cmd_list(lst, 1);
+		///ft_print_cmd_list(lst, 1);
 		execute_cmd_list(lst);
 		while (wait(&status) > 0);
 		ft_free_cmd_list(&lst);

@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 19:17:20 by mehill            #+#    #+#             */
-/*   Updated: 2021/11/11 17:11:07 by mehill           ###   ########.fr       */
+/*   Updated: 2021/11/11 19:54:05 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,10 @@ void		ft_get_redin(t_io_red *red, char **args);
 void		ft_get_redctn(t_io_red *red, char **args);
 t_cmd		*ft_fill_cmd(char *line, char **argv, char **envp);
 t_dlist		*ft_get_cmd_list(char *line, char **argv, char **envp);
+char		*ft_get_next_dollar(char *str);
+char		*ft_expand_dollar(char *arg);
+char		*ft_get_last_exit_status(void *args);
+char		**ft_expand_args(char **args);
 
 /** helpers **/
 void		ft_exit(char *msg, int err);
