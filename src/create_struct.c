@@ -22,7 +22,7 @@ t_cmd	*ft_new_cmd(void)
 	out = malloc(sizeof(t_cmd));
 	if (out == NULL)
 		return (NULL);
-	out->cmd_name = NULL;
+	out->cmd_name = ft_strdup("");
 	out->args = NULL;
 	out->envp = NULL;
 	out->exit_stat = NULL;

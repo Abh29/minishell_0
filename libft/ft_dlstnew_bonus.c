@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 22:37:14 by mehill            #+#    #+#             */
-/*   Updated: 2021/10/22 22:38:37 by mehill           ###   ########.fr       */
+/*   Updated: 2021/11/11 17:11:32 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_dlist	*ft_dlstnew(void *content)
 {
 	t_dlist	*out;
 
-	out = malloc(sizeof(t_list));
+	out = malloc(sizeof(t_dlist));
 	if (out == NULL)
 		return (NULL);
 	out->content = content;

@@ -12,10 +12,13 @@ void	execute_cmd(t_cmd *cmd)
 
 void	execute_cmd_list(t_dlist *cmds)
 {
+	int	status;
+
 	while (cmds)
 	{
 		execute_cmd(cmds->content);
 		cmds = cmds->next;
+		while (wait(&status) > 0);
 	}
 }
 
@@ -25,9 +28,6 @@ int	main(int argc, char **argv, char **envp)
 	char	*line;
 	int		status;
 	t_dlist	*lst;
-
-	if (1 && printf("") || printf("1") && printf(""))
-		printf("worked");
 
 	(void) argc;
 	(void) argv;
@@ -57,7 +57,7 @@ int	main(int argc, char **argv, char **envp)
 		ft_print_cmd_list(lst, 1);
 		execute_cmd_list(lst);
 		while (wait(&status) > 0);
-		//ft_free_cmd_list(&lst);
+		ft_free_cmd_list(&lst);
 	}
 	free(line);
 	return (0);

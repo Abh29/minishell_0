@@ -24,9 +24,6 @@ t_cmd	*ft_fill_cmd(char *line, char **argv, char **envp)
 	char	**spt;
 
 	spt = ft_split_args(line);
-	printf("this is the received line %s\n", line);
-	ft_print_splt(spt, 1);
-	getchar();
 	cmd = ft_new_cmd();
 	cmd->cmd_name = ft_which(spt[0], envp);
 	ft_get_redctn(cmd->red, spt);
@@ -47,12 +44,12 @@ t_dlist	*ft_get_cmd_list(char *line, char **argv, char **envp)
 	smq = ft_get_next_cemicln(line);
 	cmdline = NULL;
 	out = NULL;
+	cmd = NULL;
 	while (smq)
 	{
 		*smq = 0;
 		cmdline = ft_strdup(line);
 		line = smq + 1;
-		printf("this is cmdline : %s\n", cmdline);
 		cmd = ft_fill_cmd(cmdline, argv, envp);
 		ft_dlstadd_back(&out, ft_dlstnew(cmd));
 		free(cmdline);
