@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 23:21:20 by mehill            #+#    #+#             */
-/*   Updated: 2021/11/05 20:06:02 by mehill           ###   ########.fr       */
+/*   Updated: 2021/11/12 20:10:23 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ void	ft_print_cmd(t_cmd *cmd, int fd)
 	ft_print_splt(cmd->args, fd);
 	ft_putstr_fd("io redirections : \n", fd);
 	ft_print_io_red(cmd->red, fd);
+	ft_putstr_fd("\n", fd);
+	ft_putstr_fd("pipes : ", fd);
+	ft_putnbr_fd(ft_dlstsize(cmd->pipe), fd);
 	ft_putstr_fd("\n", fd);
 }
 

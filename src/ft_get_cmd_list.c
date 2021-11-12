@@ -31,6 +31,7 @@ t_cmd	*ft_fill_cmd(char *line, char **argv, char **envp)
 	ft_get_redctn(cmd->red, espt);
 	cmd->envp = ft_vectdup(argv);
 	cmd->args = ft_vectdup(espt);
+	cmd->pipe = ft_get_pipes_list(line, argv, envp);
 	ft_free_split(&spt);
 	ft_free_split(&espt);
 	return (cmd);

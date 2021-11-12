@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 19:17:20 by mehill            #+#    #+#             */
-/*   Updated: 2021/11/11 19:54:05 by mehill           ###   ########.fr       */
+/*   Updated: 2021/11/12 20:02:06 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ char		*ft_get_next_dollar(char *str);
 char		*ft_expand_dollar(char *arg);
 char		*ft_get_last_exit_status(void *args);
 char		**ft_expand_args(char **args);
+t_dlist		*ft_get_pipes_list(char *line, char **argv, char **envp);
 
 /** helpers **/
 void		ft_exit(char *msg, int err);

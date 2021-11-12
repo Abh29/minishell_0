@@ -50,21 +50,12 @@ void	ft_free_cmd(t_cmd **cmd)
 	ft_free_split(&(*cmd)->args);
 	ft_free_split(&(*cmd)->envp);
 	ft_free_io_red(&(*cmd)->red);
-	while ((*cmd)->ors)
-	{
-		ft_free_cmd((t_cmd **) &(*cmd)->ors->content);
-		(*cmd)->ors = (*cmd)->ors->next;
-	}
-	while ((*cmd)->ands)
-	{
-		ft_free_cmd((t_cmd **) &(*cmd)->ands->content);
-		(*cmd)->ands = (*cmd)->ands->next;
-	}
+	if ((*cmd)->ors)
+		ft_free_cmd_list(&((*cmd)->ors));
+	if ((*cmd)->ands)
+		ft_free_cmd_list(&((*cmd)->ands));
 	if ((*cmd)->pipe)
-	{
-		ft_free_cmd((t_cmd **) &(*cmd)->ands->content);
-		(*cmd)->ands = (*cmd)->ands->next;
-	}
+		ft_free_cmd_list(&((*cmd)->pipe));
 	free(*cmd);
 	*cmd = NULL;
 }
