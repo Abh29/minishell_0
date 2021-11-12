@@ -1,5 +1,7 @@
 #include "mch.h"
 
+t_cmd *cmd;
+
 void	execute_cmd(t_cmd *cmd)
 {
 	int	pid;
@@ -56,7 +58,7 @@ int	main(int argc, char **argv, char **envp)
 		if (line)
 			line[ft_strlen(line) - 1] = 0;
 		lst = ft_get_cmd_list(line, argv, envp);
-		//ft_print_cmd_list(lst, 1);
+		ft_print_cmd_list(lst, 1);
 		execute_cmd_list(lst);
 		while (wait(&status) > 0);
 		ft_free_cmd_list(&lst);

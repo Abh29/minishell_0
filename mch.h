@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 19:17:20 by mehill            #+#    #+#             */
-/*   Updated: 2021/11/12 20:02:06 by mehill           ###   ########.fr       */
+/*   Updated: 2021/11/12 21:26:14 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ typedef enum e_builtings
 	FT_EXPORT,
 	FT_UNSET,
 	FT_ENV,
-	FT_EXIT
+	FT_EXIT,
+	FT_SUBSHELL
 }			t_builtings;
 
 typedef struct s_stack
