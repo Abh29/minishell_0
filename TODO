@@ -1,0 +1,7 @@
+for mehill
+
+changing split cmd 
+adding "()" FT_SUBSHELL
+adding "&&" and "||"
+adding "match( pattern , string )"
+adding "expand_astrix"
