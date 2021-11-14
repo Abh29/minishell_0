@@ -43,7 +43,7 @@ void	ft_free_io_red(t_io_red **red)
 	*red = NULL;
 }
 
-//free envp??
+//TODO: free envp??
 void	ft_free_cmd(t_cmd **cmd)
 {
 	free((*cmd)->cmd_name);

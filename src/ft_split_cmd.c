@@ -6,9 +6,10 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 19:28:27 by mehill            #+#    #+#             */
-/*   Updated: 2021/10/29 21:34:14 by mehill           ###   ########.fr       */
+/*   Updated: 2021/11/12 21:22:36 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../mch.h"
 
@@ -21,90 +22,72 @@ int	ft_isspace(int c)
 	return (0);
 }
 
-int	ft_valid_sep(int current, int previous, int *quote)
+// added () for spliting 
+char	*ft_next_sep(char *line)
 {
-	if (*quote == -1 && previous != '\\' && ft_isspace(current))
-		return (1);
-	if (*quote != -1 && current == *quote && previous != '\\')
-		*quote = -1;
-	else if (*quote == -1 && previous != '\\' \
-	&& (current == '\"' || current == '\''))
-		*quote = current;
-	return (0);
+	int		prth;
+	int		qts;
+
+	qts = 0;
+	prth = 0;
+	while (*line)
+	{
+		if (*line == '\'' || *line == '\"')
+		{
+			if (qts == 0)
+				qts = *line;
+			else if (qts == *line)
+				qts = 0;
+		}
+		else if (qts == 0 && *line == '(' && *(line - 1) != '\\')
+			prth++;
+		else if (qts == 0 && prth > 0 && *line == ')' && *(line - 1) != '\\')
+			prth--;
+		else if (qts == 0 && prth == 0 && *(line - 1) != '\\' && ft_isspace(*line))
+			return (line);
+		line++;
+	}
+	return (NULL);
 }
 
 int	ft_arg_count(char *line)
 {
-	int	out;
-	int	qts;
-	int	prev;
+	int		out;
 
 	out = 0;
-	qts = -1;
-	prev = 0;
 	while (*line && ft_isspace(*line))
 		line++;
-	while (*line)
+	while (line && *line)
 	{
-		while (*line && ft_valid_sep(*line, prev, &qts))
-		{
-			prev = *line;
+		line = ft_next_sep(line);
+		while (line && *line && ft_isspace(*line))
 			line++;
-		}
-		if (*line)
-		{
-			prev = *line;
-			line++;
-			out++;
-		}
-		while (*line && ft_valid_sep(*line, prev, &qts) == 0)
-		{
-			prev = *line;
-			line++;
-		}
+		out++;
 	}
 	return (out);
 }
 
 char	**ft_split_args(char *line)
 {
-	int		i;
 	char	**out;
-	char	prev;
-	int		qts;
+	char	*p;
 	int		w;
-	int		j;
 
 	out = malloc((ft_arg_count(line) + 1) * sizeof(char *));
 	if (out == NULL)
 		return (NULL);
-	qts = -1;
-	prev = 0;
 	w = 0;
-	while (*line)
+	while (*line && ft_isspace(*line))
+		line++;
+	while (line && *line)
 	{
-		while (*line && ft_valid_sep(*line, prev, &qts))
-		{
-			prev = *line;
+		p = ft_next_sep(line);
+		if (p)
+			*p++ = 0;
+		out[w++] = ft_strdup(line);
+		line = p;
+		while (line && *line && ft_isspace(*line))
 			line++;
-		}
-		if (*line)
-		{
-			i = 1;
-			prev = *line;
-			line++;
-			while (*line && ft_valid_sep(*line, prev, &qts) == 0 && i++ > -1)
-			{
-				prev = *line;
-				line++;	
-			}
-			out[w] = malloc(i + 1);
-			line -= i;
-			j = 0;
-			while (j < i)
-				out[w][j++] = *line++;
-			out[w++][i] = 0;			
-		}
 	}
 	out[w] = NULL;
 	return (out);

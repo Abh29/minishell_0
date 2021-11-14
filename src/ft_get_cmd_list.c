@@ -1,43 +1,34 @@
 #include "../mch.h"
 
+// FIXME: derefrencing of (line - 1)!
 char	*ft_get_next_cemicln(char *line)
 {
-	char	q;
+	char	qts;
+	int		prth;
 
-	q = 0;
+	qts = 0;
+	prth = 0;
 	while (*line)
 	{
-		if (q != 0 && *line == q)
-			q = 0;
-		else if (q == 0 && (*line == '\'' || *line == '\"'))
-			q = *line;
-		else if (q == 0 && *line == ';')
+		if (*line == '\'' || *line == '\"')
+		{
+			if (qts == 0)
+				qts = *line;
+			else if (qts == *line)
+				qts = 0;
+		}
+		else if (qts == 0 && *line == '(' && *(line - 1) != '\\')
+			prth++;
+		else if (qts == 0 && prth > 0 && *line == ')' && *(line - 1) != '\\')
+			prth--;
+		else if (qts == 0 && prth == 0 && *(line - 1) != '\\' && *line == ';')
 			return (line);
 		line++;
 	}
 	return (NULL);
 }
 
-t_cmd	*ft_fill_cmd(char *line, char **argv, char **envp)
-{
-	t_cmd	*cmd;
-	char	**spt;
-	char	**espt;
-
-	spt = ft_split_args(line);
-	cmd = ft_new_cmd();
-	cmd->cmd_name = ft_which(spt[0], envp);
-	espt = ft_expand_args(spt);
-	ft_get_redctn(cmd->red, espt);
-	cmd->envp = ft_vectdup(argv);
-	cmd->args = ft_vectdup(espt);
-	cmd->pipe = ft_get_pipes_list(line, argv, envp);
-	ft_free_split(&spt);
-	ft_free_split(&espt);
-	return (cmd);
-}
-
-// cmd == NULL ??
+// TODO: cmd == NULL ??
 t_dlist	*ft_get_cmd_list(char *line, char **argv, char **envp)
 {
 	char	*cmdline;

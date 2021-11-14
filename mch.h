@@ -34,6 +34,7 @@
 # include <termcap.h>
 # include <fcntl.h>
 # include <errno.h>
+# include <dirent.h>
 
 /** defenition ***/
 # define SHELL_NAME "minishell> "
@@ -134,6 +135,10 @@ void		ft_print_splt(char	**spt, int fd);
 void		ft_print_io_red(t_io_red *red, int fd);
 void		ft_print_cmd(t_cmd *cmd, int fd);
 void		ft_print_cmd_list(t_dlist *cmds, int fd);
+
+/** tests  ***/
+int			ft_arg_count_2(char *line);
+char		**ft_split_args_2(char *line);
 
 #endif
 
