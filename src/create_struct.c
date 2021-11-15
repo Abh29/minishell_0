@@ -30,6 +30,8 @@ t_cmd	*ft_new_cmd(void)
 	out->ors = NULL;
 	out->ands = NULL;
 	out->pipe = NULL;
+	out->ands_ors = NULL;
+	out->log = 0;
 	return (out);
 }
 

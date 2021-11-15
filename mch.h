@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 19:17:20 by mehill            #+#    #+#             */
-/*   Updated: 2021/11/12 21:26:14 by mehill           ###   ########.fr       */
+/*   Updated: 2021/11/15 22:21:28 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ typedef struct s_cmd
 	t_dlist			*ors;
 	t_dlist			*ands;
 	t_dlist			*pipe;
+	t_dlist			*ands_ors;
+	int				log;
 }				t_cmd;
 
 typedef enum e_builtings
@@ -102,6 +104,13 @@ char		*ft_expand_dollar(char *arg);
 char		*ft_get_last_exit_status(void *args);
 char		**ft_expand_args(char **args);
 t_dlist		*ft_get_pipes_list(char *line, char **argv, char **envp);
+char		*ft_next_logical_op(char *line);
+t_dlist		*ft_get_ands_list(char *line, char **argv, char **envp);
+t_dlist		*ft_get_ors_list(char *line, char **argv, char **envp);
+t_dlist		*ft_get_ands_ors_list(char *line, char **argv, char **envp);
+char		*ft_next_or(char *line);
+char		*ft_next_and(char *line);
+char		*ft_next_pipe(char *line);
 
 /** helpers **/
 void		ft_exit(char *msg, int err);
@@ -135,6 +144,7 @@ void		ft_print_splt(char	**spt, int fd);
 void		ft_print_io_red(t_io_red *red, int fd);
 void		ft_print_cmd(t_cmd *cmd, int fd);
 void		ft_print_cmd_list(t_dlist *cmds, int fd);
+void		ft_printline(char *line, int n, int fd);
 
 /** tests  ***/
 int			ft_arg_count_2(char *line);

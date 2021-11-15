@@ -6,7 +6,6 @@ int	ft_match_astrix(char *pattern, char *str)
 	char	**spt;
 	char	*p;
 
-	
 	while (*pattern && *pattern != '*' && *str)
 	{
 		if (*str != *pattern)
@@ -20,7 +19,7 @@ int	ft_match_astrix(char *pattern, char *str)
 		p = ft_strnstr(str, *spt, ft_strlen(str));
 		if (p == NULL)
 			return (0);
-		str = p + strlen(*spt);
+		str = p + ft_strlen(*spt);
 		spt++;
 	}
 //	ft_free_split(&spt);

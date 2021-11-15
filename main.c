@@ -1,6 +1,8 @@
 #include "mch.h"
 
 t_cmd *cmd;
+int size;
+char *save;
 
 void	execute_cmd(t_cmd *cmd)
 {
@@ -71,6 +73,8 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		if (line)
 			line[ft_strlen(line) - 1] = 0;
+		size = ft_strlen(line);
+		save = line;
 		lst = ft_get_cmd_list(line, argv, envp);
 		ft_print_cmd_list(lst, 1);
 		execute_cmd_list(lst);

@@ -5,8 +5,6 @@ char	*ft_next_pipe(char *str)
 	int	q;
 
 	q = 0;
-	if (*str)
-		str++;
 	while (*str)
 	{
 		if (*str == '\'' || *str == '\"')
@@ -28,9 +26,10 @@ int	ft_pipes_count(char *line)
 	int	out;
 
 	out = 0;
-	line = ft_next_pipe(line);
-	while (line && ++out)
+	if (line)
 		line = ft_next_pipe(line);
+	while (line && out++ > -1)
+		line = ft_next_pipe(line + 1);
 	return (out);
 }
 
@@ -46,9 +45,8 @@ t_dlist	*ft_get_pipes_list(char *line, char **argv, char **envp)
 	out = NULL;
 	while (line)
 	{
-		p = ft_next_pipe(line++);
-		if (p)
-			*p++ = 0;
+		*line++ = 0;
+		p = ft_next_pipe(line);
 		cmd = ft_fill_cmd(line, argv, envp);
 		ft_dlstadd_back(&out, ft_dlstnew(cmd));
 		line = p;

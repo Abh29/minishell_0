@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 19:28:27 by mehill            #+#    #+#             */
-/*   Updated: 2021/11/12 21:22:36 by mehill           ###   ########.fr       */
+/*   Updated: 2021/11/15 22:54:38 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,17 @@ int	ft_arg_count(char *line)
 char	**ft_split_args(char *line)
 {
 	char	**out;
+	char	*save;
 	char	*p;
 	int		w;
 
+	save = ft_strdup(line);
+	line = save;
 	out = malloc((ft_arg_count(line) + 1) * sizeof(char *));
 	if (out == NULL)
 		return (NULL);
 	w = 0;
-	while (*line && ft_isspace(*line))
+	while (line && *line && ft_isspace(*line))
 		line++;
 	while (line && *line)
 	{
@@ -90,5 +93,6 @@ char	**ft_split_args(char *line)
 			line++;
 	}
 	out[w] = NULL;
+	free(save);
 	return (out);
 }
