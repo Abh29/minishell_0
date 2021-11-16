@@ -49,6 +49,7 @@ void	ft_print_cmd(t_cmd *cmd, int fd)
 	ft_putstr_fd("\n", fd);
 	ft_putstr_fd("ands_ors : ", fd);
 	ft_putnbr_fd(ft_dlstsize(cmd->ands_ors), fd);
+	ft_print_cmd_list(cmd->ands_ors, fd);
 	ft_putstr_fd("\n", fd);
 	ft_putstr_fd("log : ", fd);
 	ft_putnbr_fd(cmd->log, fd);

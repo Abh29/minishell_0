@@ -1,5 +1,4 @@
 #include "../mch.h"
-
 char	*ft_get_next_dollar(char *str)
 {
 	int	q;
@@ -21,63 +20,52 @@ char	*ft_get_next_dollar(char *str)
 	return (NULL);
 }
 
-char	*ft_replace_word(char *str, char *word, char *start, char *end)
+int	ft_var_length(char *line)
 {
-	char	*out;
+	int	out;
 
-	*start = 0;
-	start = ft_strjoin(str, word);
-	if (!start)
-		return (ft_strjoin(str, end));
-	out = ft_strjoin(start, end);
-	free(start);
-	return (out);
-}
-
-char	*ft_expand_one_dollar(char *arg)
-{
-	char	*v_name;
-	char	*p;
-	char	*start;
-	char	*end;
-	char	*out;
-
-	start = ft_get_next_dollar(arg);
-	end = start + 1;
-	while (*end)
+	if (line && *line == '$')
+		line++;
+	out = 0;
+	while (line && *line)
 	{
-		if (ft_strchr(" \"\'$", *end))
+		if (ft_strchr(" \"\'$()", *line))
 			break ;
-		end++;
+		out++;
+		line++;
 	}
-	p = ft_substr(start, 1, end - start - 1);
-	if (ft_strncmp(p, "?", 1) == 0)
-		v_name = ft_get_last_exit_status(NULL);
-	else
-		v_name = getenv(p);
-	free(p);
-	out = ft_replace_word(arg, v_name, start, end);
-	if (out == NULL)
-		return (ft_strdup(arg));
 	return (out);
 }
 
-char	*ft_expand_dollar(char *arg)
+char	*ft_expand_dollar(char *line)
 {
 	char	*out;
-	char	*save;
 	char	*p;
+	char	*var;
 
-	save = NULL;
-	p = ft_get_next_dollar(arg);
-	out = ft_strdup(arg);
-	while (p)
+	out = ft_strdup(line);
+	line = ft_get_next_dollar(out);
+	while (line)
 	{
-		save = ft_expand_one_dollar(out);
+		p = ft_substr(line, 1, ft_var_length(line));
+		if (p == NULL)
+			p = ft_strdup("");
+		else if (ft_strncmp(p, "?", 1) == 0)
+			var = ft_get_last_exit_status(NULL);
+		else
+		{
+			var = getenv(p);
+			if (var == NULL)
+				var = ft_strdup("");
+			else
+				var = ft_strdup(var);
+		}	
+		free(p);
+		p = ft_replace_word(out, var, line - out, ft_var_length(line) + 1);
+		free(var);
 		free(out);
-		out = ft_strdup(save);
-		free(save);
-		p = ft_get_next_dollar(out);
+		out = p;
+		line = ft_get_next_dollar(out);
 	}
 	return (out);
 }

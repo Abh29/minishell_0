@@ -120,6 +120,7 @@ void	ft_putdbl_exp_fd_size(double dbl, int fd, \
 void	ft_putchar_fd_size_options(char c, int fd, \
 		size_t *size, t_options options);
 char	*ft_strchrs(char *str, char *set);
+char	*ft_replace_word(char *str, char *word, int start, int length);
 
 /** double linked list ***/
 t_dlist	*ft_dlstnew(void *content);

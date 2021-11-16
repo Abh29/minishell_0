@@ -64,7 +64,7 @@ t_dlist	*ft_get_ands_ors_list(char *line, char **argv, char **envp)
 	line = ft_next_logical_op(line);
 	while (line)
 	{
-		if (*line == '&')
+		if (*(line + 1) == '&')
 			log = 1;
 		else
 			log = 2;
