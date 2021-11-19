@@ -111,6 +111,8 @@ t_dlist		*ft_get_ands_ors_list(char *line, char **argv, char **envp);
 char		*ft_next_or(char *line);
 char		*ft_next_and(char *line);
 char		*ft_next_pipe(char *line);
+int			ft_match_astrix(char *pattern, char *str);
+t_dlist		*ft_expand_astrix(char *line);
 
 /** helpers **/
 void		ft_exit(char *msg, int err);

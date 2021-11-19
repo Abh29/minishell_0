@@ -5,7 +5,11 @@ int	ft_match_astrix(char *pattern, char *str)
 {
 	char	**spt;
 	char	*p;
+	char	*save;
+	int		i;
+	int		j;
 
+	save = str;
 	while (*pattern && *pattern != '*' && *str)
 	{
 		if (*str != *pattern)
@@ -22,9 +26,16 @@ int	ft_match_astrix(char *pattern, char *str)
 		str = p + ft_strlen(*spt);
 		spt++;
 	}
-//	ft_free_split(&spt);
-	printf("rest of str |%s|\n", str);
-	if (pattern[ft_strlen(pattern) - 1] != '*' && *str)
+	if (spt)
+		ft_free_split(&spt);
+	i = ft_strlen(pattern) - 1;
+	j = ft_strlen(save) - 1;
+	while (i >= 0 && j >= 0 && pattern[i] != '*' && pattern[i] == save[j])
+	{
+		i--;
+		j--;
+	}
+	if (pattern[i] != '*' && i != j)
 		return (0);
 	return (1);
 }
