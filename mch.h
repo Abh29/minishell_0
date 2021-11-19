@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 19:17:20 by mehill            #+#    #+#             */
-/*   Updated: 2021/11/15 22:21:28 by mehill           ###   ########.fr       */
+/*   Updated: 2021/11/19 21:02:01 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,8 @@ char		*ft_next_or(char *line);
 char		*ft_next_and(char *line);
 char		*ft_next_pipe(char *line);
 int			ft_match_astrix(char *pattern, char *str);
-t_dlist		*ft_expand_astrix(char *line);
+t_dlist		*ft_get_astrix_matches(char *line);
+void		ft_expand_args_astrix(char ***args);
 
 /** helpers **/
 void		ft_exit(char *msg, int err);

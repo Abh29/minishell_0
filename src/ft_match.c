@@ -10,6 +10,7 @@ int	ft_match_astrix(char *pattern, char *str)
 	int		j;
 
 	save = str;
+	spt = NULL;
 	while (*pattern && *pattern != '*' && *str)
 	{
 		if (*str != *pattern)
@@ -18,13 +19,14 @@ int	ft_match_astrix(char *pattern, char *str)
 		pattern++;
 	}
 	spt = ft_split(pattern, '*');
-	while (*spt)
+	i = 0;
+	while (spt[i])
 	{
-		p = ft_strnstr(str, *spt, ft_strlen(str));
+		p = ft_strnstr(str, spt[i], ft_strlen(str));
 		if (p == NULL)
 			return (0);
-		str = p + ft_strlen(*spt);
-		spt++;
+		str = p + ft_strlen(spt[i]);
+		i++;
 	}
 	if (spt)
 		ft_free_split(&spt);

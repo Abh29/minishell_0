@@ -28,6 +28,7 @@ t_cmd	*ft_fill_cmd(char *line, char **argv, char **envp)
 	exp = ft_expand_dollar(line);
 	spt = ft_split_args(exp);
 	cmd->cmd_name = ft_which(spt[0], envp);
+	ft_expand_args_astrix(&spt);
 	ft_get_redctn(cmd->red, spt);
 	cmd->envp = ft_vectdup(argv);
 	cmd->args = ft_vectdup(spt);

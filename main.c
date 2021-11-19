@@ -76,8 +76,8 @@ int	main(int argc, char **argv, char **envp)
 		size = ft_strlen(line);
 		save = line;
 		lst = ft_get_cmd_list(line, argv, envp);
-		//ft_print_cmd_list(lst, 1);
-		execute_cmd_list(lst);
+		ft_print_cmd_list(lst, 1);
+		//execute_cmd_list(lst);
 		while (wait(&status) > 0);
 		ft_free_cmd_list(&lst);
 	}
