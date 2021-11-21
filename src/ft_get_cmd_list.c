@@ -5,9 +5,11 @@ char	*ft_get_next_cemicln(char *line)
 {
 	char	qts;
 	int		prth;
+	char	prev;
 
 	qts = 0;
 	prth = 0;
+	prev = 0;
 	while (*line)
 	{
 		if (*line == '\'' || *line == '\"')
@@ -17,12 +19,13 @@ char	*ft_get_next_cemicln(char *line)
 			else if (qts == *line)
 				qts = 0;
 		}
-		else if (qts == 0 && *line == '(' && *(line - 1) != '\\')
+		else if (qts == 0 && *line == '(' && prev != '\\')
 			prth++;
-		else if (qts == 0 && prth > 0 && *line == ')' && *(line - 1) != '\\')
+		else if (qts == 0 && prth > 0 && *line == ')' && prev != '\\')
 			prth--;
-		else if (qts == 0 && prth == 0 && *(line - 1) != '\\' && *line == ';')
+		else if (qts == 0 && prth == 0 && prev != '\\' && *line == ';')
 			return (line);
+		prev = *line;
 		line++;
 	}
 	return (NULL);

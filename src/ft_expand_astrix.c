@@ -42,30 +42,24 @@ char	**ft_lst_to_arr(t_dlist *args)
 		args = args->next;
 	}
 	out[i] = NULL;
-	return (NULL);
+	return (out);
 }
 
+// TODO: free lst_args ?
 void	ft_expand_args_astrix(char ***args)
 {
 	t_dlist	*lst_args;
+	t_dlist *p;
 
-	printf("here !");
-	getchar();
 	lst_args = ft_expanded_args_astrix_list(*args);
 	if (lst_args == NULL)
 		return ;
-	printf("here !");
+	ft_free_split(args);
+	*args = ft_lst_to_arr(lst_args);
 	while (lst_args)
 	{
-		printf("args: %s\n", (char *)lst_args->content);
-		lst_args = lst_args->next;
+		p = lst_args->next;
+		free(lst_args);
+		lst_args = p;
 	}
-	getchar();
-	ft_free_split(args);
-	printf("here !");
-	getchar();
-	*args = ft_lst_to_arr(lst_args);
-	printf("here ! %p\n", *args);
-	ft_print_splt(*args, 1);
-	getchar();
 }

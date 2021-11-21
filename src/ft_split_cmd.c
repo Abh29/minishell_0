@@ -27,9 +27,11 @@ char	*ft_next_sep(char *line)
 {
 	int		prth;
 	int		qts;
+	char	prev;
 
 	qts = 0;
 	prth = 0;
+	prev = 0;
 	while (*line)
 	{
 		if (*line == '\'' || *line == '\"')
@@ -39,12 +41,13 @@ char	*ft_next_sep(char *line)
 			else if (qts == *line)
 				qts = 0;
 		}
-		else if (qts == 0 && *line == '(' && *(line - 1) != '\\')
+		else if (qts == 0 && *line == '(' && prev != '\\')
 			prth++;
-		else if (qts == 0 && prth > 0 && *line == ')' && *(line - 1) != '\\')
+		else if (qts == 0 && prth > 0 && *line == ')' && prev != '\\')
 			prth--;
-		else if (qts == 0 && prth == 0 && *(line - 1) != '\\' && ft_isspace(*line))
+		else if (qts == 0 && prth == 0 && prev != '\\' && ft_isspace(*line))
 			return (line);
+		prev = *line;
 		line++;
 	}
 	return (NULL);

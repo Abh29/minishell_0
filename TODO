@@ -6,3 +6,4 @@ adding "&&" and "||"
 adding "match( pattern , string )"
 adding "expand_astrix"
 change expand variables to the top
+change redirections

@@ -22,7 +22,7 @@ t_cmd	*ft_new_cmd(void)
 	out = malloc(sizeof(t_cmd));
 	if (out == NULL)
 		return (NULL);
-	out->cmd_name = ft_strdup("");
+	out->cmd_name = NULL;
 	out->args = NULL;
 	out->envp = NULL;
 	out->exit_stat = NULL;
@@ -48,7 +48,8 @@ void	ft_free_io_red(t_io_red **red)
 //TODO: free envp??
 void	ft_free_cmd(t_cmd **cmd)
 {
-	free((*cmd)->cmd_name);
+	if ((*cmd)->cmd_name)
+		free((*cmd)->cmd_name);
 	ft_free_split(&(*cmd)->args);
 	ft_free_split(&(*cmd)->envp);
 	ft_free_io_red(&(*cmd)->red);

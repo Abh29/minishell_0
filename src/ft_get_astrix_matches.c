@@ -71,10 +71,10 @@ t_dlist	*ft_get_astrix_matches(char *line)
 	char			*p;
 
 	p = ft_last_slash(line);
-	if (ft_next_astrix(p) == NULL)
+	if (ft_next_astrix(p) == NULL || *line == '-')
 		return (NULL);
 	if (p == line && *p != '/')
-		line = ft_strdup(".");
+		line = ft_strdup("./");
 	else
 		line = ft_substr(line, 0, p - line + 1);
 	d = opendir(line);
@@ -82,9 +82,11 @@ t_dlist	*ft_get_astrix_matches(char *line)
 	if (d)
 	{
 		dir = readdir(d);
+		if (*p == '/')
+			p++;
 		while (dir)
 		{
-			if (ft_match_astrix(p + 1, dir->d_name))
+			if (ft_match_astrix(p, dir->d_name))
 				ft_dlstadd_back(&out, ft_dlstnew(ft_strjoin(line, \
 				dir->d_name)));
 			dir = readdir(d);
