@@ -38,3 +38,8 @@ int	ft_abs(int a)
 		a *= -1;
 	return (a);
 }
+
+int	ft_isspace(int c)
+{
+	return (c == ' ' || (c > 8 && c < 14));
+}

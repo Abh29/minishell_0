@@ -59,6 +59,8 @@ void	ft_free_cmd(t_cmd **cmd)
 		ft_free_cmd_list(&((*cmd)->ands));
 	if ((*cmd)->pipe)
 		ft_free_cmd_list(&((*cmd)->pipe));
+	if ((*cmd)->ands_ors)
+		ft_free_cmd_list(&((*cmd)->ands_ors));
 	free(*cmd);
 	*cmd = NULL;
 }

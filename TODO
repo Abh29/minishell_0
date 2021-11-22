@@ -7,3 +7,5 @@ adding "match( pattern , string )"
 adding "expand_astrix"
 change expand variables to the top
 change redirections
+	**test ft_get_red_in
+	make ft_get_red_out accordingly

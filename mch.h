@@ -121,6 +121,7 @@ int			ft_max(int a, int b);
 int			ft_min(int a, int b);
 int			ft_abs(int a);
 char		*ft_valid_red(char *arg);
+int			ft_isspace(int c);
 
 /** stack ***/
 
