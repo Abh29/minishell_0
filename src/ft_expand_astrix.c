@@ -49,7 +49,7 @@ char	**ft_lst_to_arr(t_dlist *args)
 void	ft_expand_args_astrix(char ***args)
 {
 	t_dlist	*lst_args;
-	t_dlist *p;
+	t_dlist	*p;
 
 	lst_args = ft_expanded_args_astrix_list(*args);
 	if (lst_args == NULL)

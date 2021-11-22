@@ -6,9 +6,11 @@ t_cmd	*ft_fill_cmd(char *line, char **argv, char **envp)
 	t_cmd		*cmd;
 	char		**spt;
 	char		*exp;
-//	extern int	size;
-//	extern char	*save;
+	extern int	size;
+	extern char	*save;
 
+	(void) size;
+	(void) save;
 //	printf("this is fill cmd \n<%s>", line);
 //	getchar();
 //	ft_printline(save, size, 1);
@@ -26,10 +28,12 @@ t_cmd	*ft_fill_cmd(char *line, char **argv, char **envp)
 //	}
 	cmd->pipe = ft_get_pipes_list(line, argv, envp);
 	exp = ft_expand_dollar(line);
+	ft_fill_in_redirection(cmd->red, exp);
+	ft_fill_out_redirection(cmd->red, exp);
 	spt = ft_split_args(exp);
 	cmd->cmd_name = ft_which(spt[0], envp);
 	ft_expand_args_astrix(&spt);
-	ft_get_redctn(cmd->red, spt);
+	//ft_get_redctn(cmd->red, spt);
 	cmd->envp = ft_vectdup(argv);
 	cmd->args = ft_vectdup(spt);
 	ft_free_split(&spt);

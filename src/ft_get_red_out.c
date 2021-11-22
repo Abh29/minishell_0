@@ -1,6 +1,6 @@
 #include "../mch.h"
 
-char	*ft_next_red_in(char *line)
+char	*ft_next_red_out(char *line)
 {
 	int	q;
 
@@ -14,19 +14,19 @@ char	*ft_next_red_in(char *line)
 			else if (q == *line)
 				q = 0;
 		}
-		else if (q == 0 && *line == '<')
+		else if (q == 0 && *line == '>')
 			return (line);
 		line++;
 	}
 	return (NULL);
 }
 
-int	ft_red_length(char *line)
+int	ft_red_out_length(char *line)
 {
 	int	out;
 	int	qt;
 
-	while (line && *line == '<')
+	while (line && *line == '>')
 		line++;
 	while (*line && ft_isspace(*line))
 		line++;
@@ -49,7 +49,7 @@ int	ft_red_length(char *line)
 	return (out);
 }
 
-char	*ft_get_in_name(char *line, int *t)
+char	*ft_get_out_name(char *line, int *t)
 {
 	char	*p;
 	char	*out;
@@ -62,7 +62,7 @@ char	*ft_get_in_name(char *line, int *t)
 		*t = 0;
 		i = ft_red_length(p);
 		*p++ = ' ';
-		if (*p == '<' && (*t)++ > -1)
+		if (*p == '>' && (*t)++ > -1)
 			*p++ = ' ';
 		while (*p && ft_isspace(*p))
 			p++;
@@ -77,7 +77,7 @@ char	*ft_get_in_name(char *line, int *t)
 }
 
 //TODO: test this !;
-void	ft_fill_in_redirection(t_io_red *red, char *line)
+void	ft_fill_out_redirection(t_io_red *red, char *line)
 {
 	char	*name;
 	char	*p;
@@ -90,12 +90,13 @@ void	ft_fill_in_redirection(t_io_red *red, char *line)
 	if (name == NULL)
 		ft_exit("Error : couldn't get redirection var!\n", 1);
 	if (t == 1)
-		red->limiter = name;
-	else
 	{
-		red->fdin = open(name, O_RDONLY, 0755);
-		if (red->fdin < 0)
-			perror("Error : ");
-		free(name);
+		red->fdout = open(name, O_WRONLY | O_CREAT | O_APPEND, 0755);
+		red->append = 1;
 	}
+	else
+		red->fdout = open(name, O_WRONLY | O_CREAT | O_TRUNC, 0755);
+	if (red->fdout < 0)
+		perror("Error : ");
+	free(name);
 }
