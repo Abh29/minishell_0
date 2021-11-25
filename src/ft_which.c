@@ -12,6 +12,7 @@
 
 #include "../mch.h"
 
+//TODO: add builtings !!
 static char	*ft_check_possible(char	**paths, char *scmd)
 {
 	char	*pcmd;

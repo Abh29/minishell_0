@@ -116,6 +116,7 @@ t_dlist		*ft_get_astrix_matches(char *line);
 void		ft_expand_args_astrix(char ***args);
 void		ft_fill_in_redirection(t_io_red *red, char *line);
 void		ft_fill_out_redirection(t_io_red *red, char *line);
+void		execute_cmd_list(t_dlist *cmds);
 
 /** helpers **/
 void		ft_exit(char *msg, int err);

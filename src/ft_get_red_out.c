@@ -55,12 +55,12 @@ char	*ft_get_out_name(char *line, int *t)
 	char	*out;
 	int		i;
 
-	p = ft_next_red_in(line);
+	p = ft_next_red_out(line);
 	out = NULL;
 	while (p)
 	{
 		*t = 0;
-		i = ft_red_length(p);
+		i = ft_red_out_length(p);
 		*p++ = ' ';
 		if (*p == '>' && (*t)++ > -1)
 			*p++ = ' ';
@@ -71,7 +71,7 @@ char	*ft_get_out_name(char *line, int *t)
 		out = ft_substr(p, 0, i);
 		while (*p && i-- > -1)
 			*p++ = ' ';
-		p = ft_next_red_in(line);
+		p = ft_next_red_out(line);
 	}
 	return (out);
 }
@@ -83,10 +83,10 @@ void	ft_fill_out_redirection(t_io_red *red, char *line)
 	char	*p;
 	int		t;
 
-	p = ft_next_red_in(line);
+	p = ft_next_red_out(line);
 	if (p == NULL)
 		return ;
-	name = ft_get_in_name(line, &t);
+	name = ft_get_out_name(line, &t);
 	if (name == NULL)
 		ft_exit("Error : couldn't get redirection var!\n", 1);
 	if (t == 1)

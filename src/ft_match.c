@@ -1,6 +1,5 @@
 #include "../mch.h"
 
-// FIXME: free split !
 int	ft_match_astrix(char *pattern, char *str)
 {
 	char	**spt;
