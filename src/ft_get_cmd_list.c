@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_get_cmd_list.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/05 17:15:55 by mehill            #+#    #+#             */
+/*   Updated: 2021/12/05 20:33:46 by mehill           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../mch.h"
 
 // FIXME: derefrencing of (line - 1)!
 char	*ft_get_next_cemicln(char *line)
 {
-	char	qts;
+	int		qts;
 	int		prth;
 	char	prev;
 
@@ -12,13 +24,8 @@ char	*ft_get_next_cemicln(char *line)
 	prev = 0;
 	while (*line)
 	{
-		if (*line == '\'' || *line == '\"')
-		{
-			if (qts == 0)
-				qts = *line;
-			else if (qts == *line)
-				qts = 0;
-		}
+		if (ft_qts_helper(*line, &qts))
+			(void)line;
 		else if (qts == 0 && *line == '(' && prev != '\\')
 			prth++;
 		else if (qts == 0 && prth > 0 && *line == ')' && prev != '\\')
@@ -55,10 +62,7 @@ t_dlist	*ft_get_cmd_list(char *line, char **argv, char **envp)
 		smq = ft_get_next_cemicln(line);
 	}
 	if (*line)
-	{
-		cmd = ft_fill_cmd(line, argv, envp);
-		ft_dlstadd_back(&out, ft_dlstnew(cmd));
-	}
+		ft_dlstadd_back(&out, ft_dlstnew(ft_fill_cmd(line, argv, envp)));
 	return (out);
 }
 

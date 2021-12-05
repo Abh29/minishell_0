@@ -1,45 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tools.c                                            :+:      :+:    :+:   */
+/*   ft_trim_args.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/22 23:22:31 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/05 19:05:55 by mehill           ###   ########.fr       */
+/*   Created: 2021/12/05 17:18:40 by mehill            #+#    #+#             */
+/*   Updated: 2021/12/05 17:34:42 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mch.h"
 
-void	ft_exit(char *msg, int err)
+void	ft_trim_args(char **args)
 {
-	ft_putstr_fd(msg, 2);
-	exit(err);
-}
+	char	*tmp;
+	int		i;
 
-int	ft_max(int a, int b)
-{
-	if (a > b)
-		return (a);
-	return (b);
-}
-
-int	ft_min(int a, int b)
-{
-	if (a < b)
-		return (a);
-	return (b);
-}
-
-int	ft_abs(int a)
-{
-	if (a < 0)
-		a *= -1;
-	return (a);
-}
-
-int	ft_isspace(int c)
-{
-	return (c == ' ' || (c > 8 && c < 14));
+	if (args == NULL)
+		return ;
+	i = 0;
+	while (args[i])
+	{
+		if (args[i][0] == '\'' || args[i][0] == '\"')
+		{
+			tmp = ft_substr(args[i], 1, ft_strlen(args[i]) - 2);
+			free(args[i]);
+			args[i] = tmp;
+		}
+		i++;
+	}
 }

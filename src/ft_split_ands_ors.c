@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split_ands_ors.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/05 20:32:18 by mehill            #+#    #+#             */
+/*   Updated: 2021/12/05 20:36:30 by mehill           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../mch.h"
 
 //TODO: split by logical operators.
@@ -23,13 +35,8 @@ char	*ft_next_logical_op(char *line)
 	prev = 0;
 	while (*line)
 	{
-		if (*line == '\'' || *line == '\"')
-		{
-			if (qts == 0)
-				qts = *line;
-			else if (qts == *line)
-				qts = 0;
-		}
+		if (ft_qts_helper(*line, &qts))
+			(void)qts;
 		else if (qts == 0 && *line == '(' && prev != '\\')
 			prth++;
 		else if (qts == 0 && prth > 0 && *line == ')' && prev != '\\')
@@ -54,6 +61,14 @@ int	ft_op_count(char *line)
 	return (out);
 }
 
+void	ft_set_log(char *line, int *log)
+{
+	if (*(line + 1) == '&')
+		*log = 1;
+	else
+		*log = 2;
+}
+
 t_dlist	*ft_get_ands_ors_list(char *line, char **argv, char **envp)
 {
 	t_dlist	*out;
@@ -67,10 +82,7 @@ t_dlist	*ft_get_ands_ors_list(char *line, char **argv, char **envp)
 	line = ft_next_logical_op(line);
 	while (line)
 	{
-		if (*(line + 1) == '&')
-			log = 1;
-		else
-			log = 2;
+		ft_set_log(line, &log);
 		*line++ = 0;
 		*line++ = 0;
 		p = ft_next_logical_op(line);

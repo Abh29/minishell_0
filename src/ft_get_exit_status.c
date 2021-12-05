@@ -1,45 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tools.c                                            :+:      :+:    :+:   */
+/*   ft_get_exit_status.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/22 23:22:31 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/05 19:05:55 by mehill           ###   ########.fr       */
+/*   Created: 2021/12/05 20:28:30 by mehill            #+#    #+#             */
+/*   Updated: 2021/12/05 20:28:51 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mch.h"
+// TODO: this is for Anglina !!
 
-void	ft_exit(char *msg, int err)
+char	*ft_get_last_exit_status(void *args)
 {
-	ft_putstr_fd(msg, 2);
-	exit(err);
-}
-
-int	ft_max(int a, int b)
-{
-	if (a > b)
-		return (a);
-	return (b);
-}
-
-int	ft_min(int a, int b)
-{
-	if (a < b)
-		return (a);
-	return (b);
-}
-
-int	ft_abs(int a)
-{
-	if (a < 0)
-		a *= -1;
-	return (a);
-}
-
-int	ft_isspace(int c)
-{
-	return (c == ' ' || (c > 8 && c < 14));
+	(void) args;
+	return (ft_strdup("0"));
 }

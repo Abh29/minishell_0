@@ -6,14 +6,12 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 19:28:27 by mehill            #+#    #+#             */
-/*   Updated: 2021/11/15 22:54:38 by mehill           ###   ########.fr       */
+/*   Updated: 2021/12/05 20:41:10 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../mch.h"
 
-// added () for spliting 
 char	*ft_next_sep(char *line)
 {
 	int		prth;
@@ -25,13 +23,8 @@ char	*ft_next_sep(char *line)
 	prev = 0;
 	while (*line)
 	{
-		if (*line == '\'' || *line == '\"')
-		{
-			if (qts == 0)
-				qts = *line;
-			else if (qts == *line)
-				qts = 0;
-		}
+		if (ft_qts_helper(*line, &qts))
+			(void)line;
 		else if (qts == 0 && *line == '(' && prev != '\\')
 			prth++;
 		else if (qts == 0 && prth > 0 && *line == ')' && prev != '\\')
@@ -61,11 +54,21 @@ int	ft_arg_count(char *line)
 	return (out);
 }
 
+void	ft_helper_4(char **line, char **out, int w)
+{
+	char	*p;
+
+	p = ft_next_sep(*line);
+	if (p)
+		*p++ = 0;
+	out[w] = ft_strdup(*line);
+	*line = p;
+}
+
 char	**ft_split_args(char *line)
 {
 	char	**out;
 	char	*save;
-	char	*p;
 	int		w;
 
 	save = ft_strdup(line);
@@ -78,11 +81,7 @@ char	**ft_split_args(char *line)
 		line++;
 	while (line && *line)
 	{
-		p = ft_next_sep(line);
-		if (p)
-			*p++ = 0;
-		out[w++] = ft_strdup(line);
-		line = p;
+		ft_helper_4(&line, out, w++);
 		while (line && *line && ft_isspace(*line))
 			line++;
 	}

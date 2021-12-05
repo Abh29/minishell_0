@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 19:17:20 by mehill            #+#    #+#             */
-/*   Updated: 2021/11/22 19:53:39 by mehill           ###   ########.fr       */
+/*   Updated: 2021/12/05 20:03:21 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,18 @@ void		ft_expand_args_astrix(char ***args);
 void		ft_fill_in_redirection(t_io_red *red, char *line);
 void		ft_fill_out_redirection(t_io_red *red, char *line);
 void		execute_cmd_list(t_dlist *cmds);
+void		ft_trim_args(char **args);
+
+/** lexer **/
+int			ft_check_parnth(char *line, int *pos);
+int			ft_check_quts(char *line, int *pos);
+void		ft_check_cmd_line(char *line, int *err, int *pos);
+int			ft_check_anomal_0(char *line, int *pos);
+int			ft_check_anomal_1(char *line, int *pos);
+int			ft_check_anomal_2(char *line, int *pos);
+char		*ft_get_cmd_line(int fd);
+void		ft_routine_1(char **line, int fd);
+void		*ft_routine_2(char **line, int fd, char *msg);
 
 /** helpers **/
 void		ft_exit(char *msg, int err);
@@ -125,6 +137,7 @@ int			ft_min(int a, int b);
 int			ft_abs(int a);
 char		*ft_valid_red(char *arg);
 int			ft_isspace(int c);
+int			ft_qts_helper(char c, int *qts);
 
 /** stack ***/
 

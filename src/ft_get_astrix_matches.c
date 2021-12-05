@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_get_astrix_matches.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/05 20:17:24 by mehill            #+#    #+#             */
+/*   Updated: 2021/12/05 20:23:28 by mehill           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../mch.h"
 
 char	*ft_next_slash(char *str)
@@ -63,11 +75,26 @@ char	*ft_last_slash(char *str)
 	return (str);
 }
 
+void	ft_helper_3(DIR *d, char *p, char *line, t_dlist **out)
+{
+	struct dirent	*dir;
+
+	dir = readdir(d);
+	if (*p == '/')
+		p++;
+	while (dir)
+	{
+		if (ft_match_astrix(p, dir->d_name))
+			ft_dlstadd_back(out, ft_dlstnew(ft_strjoin(line, \
+			dir->d_name)));
+		dir = readdir(d);
+	}
+}
+
 t_dlist	*ft_get_astrix_matches(char *line)
 {
 	t_dlist			*out;
 	DIR				*d;
-	struct dirent	*dir;
 	char			*p;
 
 	p = ft_last_slash(line);
@@ -81,16 +108,7 @@ t_dlist	*ft_get_astrix_matches(char *line)
 	out = NULL;
 	if (d)
 	{
-		dir = readdir(d);
-		if (*p == '/')
-			p++;
-		while (dir)
-		{
-			if (ft_match_astrix(p, dir->d_name))
-				ft_dlstadd_back(&out, ft_dlstnew(ft_strjoin(line, \
-				dir->d_name)));
-			dir = readdir(d);
-		}
+		ft_helper_3(d, p, line, &out);
 		closedir(d);
 	}
 	free(line);

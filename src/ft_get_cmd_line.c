@@ -1,0 +1,63 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_get_cmd_line.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/05 17:38:04 by mehill            #+#    #+#             */
+/*   Updated: 2021/12/05 20:11:08 by mehill           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../mch.h"
+
+void	ft_routine_1(char **line, int fd)
+{
+	char	*tmp;
+	char	*tmp2;
+
+	tmp = *line;
+	tmp[ft_strlen(tmp) - 1] = 0;
+	ft_putstr_fd(">", fd);
+	tmp2 = get_next_line(fd);
+	*line = ft_strjoin(tmp, tmp2);
+	free(tmp2);
+	free(tmp);
+}
+
+void	*ft_routine_2(char **line, int fd, char *msg)
+{
+	ft_putstr_fd(msg, fd);
+	free(*line);
+	*line = NULL;
+	return (NULL);
+}
+
+char	*ft_get_cmd_line(int fd)
+{
+	char	*out;
+	int		err;
+	int		pos;
+
+	ft_putstr_fd(SHELL_NAME, fd);
+	out = get_next_line(fd);
+	while (1)
+	{
+		ft_check_cmd_line(out, &err, &pos);
+		if (err == 0)
+			break ;
+		if (err == 3)
+			ft_routine_1(&out, fd);
+		else if (err == 4)
+			return (ft_routine_2(&out, fd, \
+			"Error : syntax error unclosed parentheses !"));
+		else if (err == 5)
+			return (ft_routine_2(&out, fd, \
+			"Error : syntax error wrong parentheses order !"));
+		else if (err == 6 || err == 7)
+			return (ft_routine_2(&out, fd, \
+			"Error : unexpected syntax !"));
+	}
+	return (out);
+}

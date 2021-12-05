@@ -1,11 +1,23 @@
 for mehill
 
-changing split cmd 
-adding "()" FT_SUBSHELL
-adding "&&" and "||"
-adding "match( pattern , string )"
-adding "expand_astrix"
-change expand variables to the top
-change redirections
-	**test ft_get_red_in
-	make ft_get_red_out accordingly
+changing split cmd 						•done
+adding "()" FT_SUBSHELL					•done
+adding "&&" and "||"					•done
+adding "match( pattern , string )"		•done
+adding "expand_astrix"					•done
+change expand variables to the top		•done
+change redirections 					•done
+	**test ft_get_red_in				•done
+	make ft_get_red_out accordingly  	•done
+include builtings in ft_which			•pending
+remove quotes from splits   			•done
+add a lexer								...
+	check	unclosed quotes
+	check unclosed parentheses
+	check parentheses order
+	
+
+
+for ddelena
+
+check if command exists

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_match.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/05 20:29:26 by mehill            #+#    #+#             */
+/*   Updated: 2021/12/05 20:29:34 by mehill           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../mch.h"
 
 int	ft_match_astrix(char *pattern, char *str)
@@ -40,12 +52,3 @@ int	ft_match_astrix(char *pattern, char *str)
 		return (0);
 	return (1);
 }
-
-/*
-int main(int argc, char **argv)
-{
-	if (argc < 3)
-		return 1;
-	printf("%s , %s , %d \n", argv[1], argv[2], ft_match_astrix(argv[1], argv[2]));
-	return 0;
-}*/

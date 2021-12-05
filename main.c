@@ -65,18 +65,18 @@ int	main(int argc, char **argv, char **envp)
 	{
 		if (line)
 			free(line);
-		ft_putstr_fd(SHELL_NAME, 1);
-		line = get_next_line(1);
+		line = ft_get_cmd_line(1);
 		if (*line == '\n' || *line == '\t')
 			continue ;
 		if (ft_strncmp(line, "exit\n", 5) == 0)
 			break ;
-		if (line)
-			line[ft_strlen(line) - 1] = 0;
+		if (!line)
+			continue ;
+		line[ft_strlen(line) - 1] = 0;
 		size = ft_strlen(line);
 		save = line;
 		lst = ft_get_cmd_list(line, argv, envp);
-		//ft_print_cmd_list(lst, 1);
+	//	ft_print_cmd_list(lst, 1);
 		execute_cmd_list(lst);
 		while (wait(&status) > 0);
 		ft_free_cmd_list(&lst);
