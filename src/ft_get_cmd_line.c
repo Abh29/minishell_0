@@ -12,6 +12,21 @@
 
 #include "../mch.h"
 
+void	ft_routine_ctrl_d(char **line, int fd)
+{
+	char	*tmp;
+	char	*tmp2;
+
+	tmp2 = NULL;
+	(void)fd;
+	tmp = *line;
+	while (tmp2 == NULL)
+		tmp2 = get_next_line(fd);
+	*line = ft_strjoin(tmp, tmp2);
+	free(tmp2);
+	free(tmp);
+}
+
 void	ft_routine_1(char **line, int fd)
 {
 	char	*tmp;
@@ -42,11 +57,13 @@ char	*ft_get_cmd_line(int fd)
 
 	ft_putstr_fd(SHELL_NAME, fd);
 	out = get_next_line(fd);
-	while (1)
+	while (out)
 	{
 		ft_check_cmd_line(out, &err, &pos);
 		if (err == 0)
 			break ;
+		if (err == 2)
+			ft_routine_ctrl_d(&out, fd);
 		if (err == 3)
 			ft_routine_1(&out, fd);
 		else if (err == 4)

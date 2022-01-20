@@ -15,7 +15,7 @@ add a lexer								...
 	check	unclosed quotes
 	check unclosed parentheses
 	check parentheses order
-	
+disable	ICANON flag to getc without enter *pending
 
 
 for ddelena

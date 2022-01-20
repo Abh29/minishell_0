@@ -91,8 +91,11 @@ void	ft_check_cmd_line(char *line, int *err, int *pos)
 {
 	if (line == NULL || err == NULL || pos == NULL)
 		return ;
-	*err = -1;
-	*err = ft_check_quts(line, pos);
+	*err = 0;
+	if (line[ft_strlen(line) - 1] != '\n')
+		*err = 2;
+	if (*err == 0)
+		*err = ft_check_quts(line, pos);
 	if (*err == 0)
 		*err = ft_check_parnth(line, pos);
 	if (*err == 0)

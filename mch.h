@@ -35,6 +35,7 @@
 # include <fcntl.h>
 # include <errno.h>
 # include <dirent.h>
+# include <signal.h>
 
 /** defenition ***/
 # define SHELL_NAME "minishell> "

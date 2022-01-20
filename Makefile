@@ -8,7 +8,14 @@ BSRC :=	$(SRC)
 CC = gcc
 
 FLGS = -Wall -Werror -Wextra -Imlx  -g -lm
-VALGFLGS = --vgdb=full --leak-check=full -s -q
+
+VALGFLGS = --vgdb=full \
+		 --leak-check=full \
+         --show-leak-kinds=all \
+         --track-origins=yes \
+         --verbose \
+         --log-file=valgrind-out.txt
+
 FBSIZE =	-D BUFFER_SIZE=42
 
 HEADER = mch.h
