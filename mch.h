@@ -67,6 +67,7 @@ typedef struct s_cmd
 	t_dlist			*pipe;
 	t_dlist			*ands_ors;
 	int				log;
+	int				in_out[2];
 }				t_cmd;
 
 typedef enum e_builtings
