@@ -54,11 +54,13 @@ t_dlist	*ft_get_pipes_list(char *line, char **argv, char **envp)
 	if (ft_pipes_count(line) == 0)
 		return (NULL);
 	line = ft_next_pipe(line);
+	*line++ = 0;
 	out = NULL;
 	while (line)
 	{
-		*line++ = 0;
 		p = ft_next_pipe(line);
+		if (p)
+			*p++ = 0;
 		cmd = ft_fill_cmd(line, argv, envp);
 		ft_dlstadd_back(&out, ft_dlstnew(cmd));
 		line = p;

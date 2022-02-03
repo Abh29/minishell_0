@@ -30,7 +30,7 @@ void	execute_cmd_list(t_dlist *cmds)
 
 	while (cmds)
 	{
-		g_msh.pid_fg = execute_cmd(cmds->content);
+		g_msh.pid_fg = ft_execute_cmd(cmds->content);
 		cmds = cmds->next;
 		while (wait(&status) > 0);
 	}
@@ -67,6 +67,7 @@ int	main(int argc, char **argv, char **envp)
 	char	pwd[PATH_MAX];
 	int		status;
 	t_dlist	*lst;
+	static struct termios oldt, newt;
 
 	g_msh.argc =  argc;
 	g_msh.argv = argv;
@@ -86,6 +87,10 @@ int	main(int argc, char **argv, char **envp)
 	line = ft_strdup("");*/
 	signal(SIGINT, handle_sigint);
 	g_msh.line = NULL;
+	tcgetattr(STDIN_FILENO, &oldt);
+	newt = oldt;
+	newt.c_iflag &= ~(ICANON);
+	tcsetattr(STDIN_FILENO, TCSANOW, &newt);
 	while (1)
 	{
 		g_msh.pid_fg = 0;

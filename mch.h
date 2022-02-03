@@ -42,6 +42,7 @@
 # define MAX_SIZE 1500
 # define ACC 1
 # define DEC 2
+# define MAX_PIPE 128
 
 /** typedefs **/
 
@@ -130,6 +131,9 @@ int			ft_check_anomal_2(char *line, int *pos);
 char		*ft_get_cmd_line(int fd);
 void		ft_routine_1(char **line, int fd);
 void		*ft_routine_2(char **line, int fd, char *msg);
+
+/** execution **/
+int			ft_execute_cmd(t_cmd *cmd);
 
 /** helpers **/
 void		ft_exit(char *msg, int err);
