@@ -71,8 +71,9 @@ int	ft_check_anomal_2(char *line, int *pos)
 			(void) pos;
 		else if (qts == 0 && *line == '&')
 		{
-			if (*(line + 1) != '&' && *line++)
+			if (*(line + 1) != '&')
 				return (7);
+			line++;
 			if (ft_next_accepted_char(line + 1, "><|&-") == NULL)
 				return (6);
 		}

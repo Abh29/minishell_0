@@ -44,6 +44,15 @@
 # define DEC 2
 # define MAX_PIPE 128
 
+/** enums **/
+
+enum e_logop
+{
+	AND,
+	OR
+};
+
+
 /** typedefs **/
 
 typedef struct s_io_red
@@ -66,7 +75,7 @@ typedef struct s_cmd
 	t_dlist			*ands;
 	t_dlist			*pipe;
 	t_dlist			*ands_ors;
-	int				log;
+	enum e_logop	log;
 	int				in_out[2];
 }				t_cmd;
 
@@ -134,7 +143,7 @@ void		ft_routine_1(char **line, int fd);
 void		*ft_routine_2(char **line, int fd, char *msg);
 
 /** execution **/
-int			ft_execute_cmd(t_cmd *cmd);
+int			ft_execute_cmd(t_cmd *cmd, int *ret);
 
 /** helpers **/
 void		ft_exit(char *msg, int err);

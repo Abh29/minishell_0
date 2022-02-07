@@ -64,9 +64,9 @@ int	ft_op_count(char *line)
 void	ft_set_log(char *line, int *log)
 {
 	if (*(line + 1) == '&')
-		*log = 1;
+		*log = AND;
 	else
-		*log = 2;
+		*log = OR;
 }
 
 t_dlist	*ft_get_ands_ors_list(char *line, char **argv, char **envp)

@@ -7,6 +7,8 @@ void ft_redirect(t_cmd *cmd)
 
 	if (cmd->red->fdin == 0 && cmd->red->fdout == 1 && cmd->red->limiter == NULL)
 		return ;	// no redirections
+	if (cmd->red->fdin < 0 || cmd->red->fdout < 0)
+		exit(1);
 	if (cmd->red->limiter)
 	{
 		if (pipe(cmd->in_out) < 0)
@@ -132,7 +134,7 @@ void	ft_proci(t_cmd *cmd, int pipefds[][2], int i)
     }
 }
 
-void	ft_procn(t_cmd *cmd, int pipefds[][2], int n)
+int	ft_procn(t_cmd *cmd, int pipefds[][2], int n)
 {
 	int	pid;
 
@@ -145,17 +147,19 @@ void	ft_procn(t_cmd *cmd, int pipefds[][2], int n)
 		ft_close_pipes(pipefds);
 		ft_execute_simple_cmd(cmd);
         perror("Error in process exec ");
-       	exit(3);
+       	exit(1);
     }
+	return (pid);
 }
 
 
 void ft_pipe_cmd(t_cmd *cmd)
 {
 	t_dlist *pipel;
-	t_cmd	*tmpc;
 	int		pipefds[MAX_PIPE][2];
 	int		i;
+	int		ret;
+	int		last_pid;
 
 	//ft_print_pipe(cmd);
 	ft_create_pipes(cmd, pipefds);
@@ -164,22 +168,23 @@ void ft_pipe_cmd(t_cmd *cmd)
 	i = 1;
 	while (pipel->next)
 	{
-		tmpc = pipel->content;
-		ft_proci(tmpc, pipefds, i);
+		ft_proci(pipel->content, pipefds, i);
 		i++;
 		pipel = pipel->next;
 	}
-	ft_procn(pipel->content, pipefds, i);
+	last_pid = ft_procn(pipel->content, pipefds, i);
 	ft_close_pipes(pipefds);
-	while (wait(NULL) > 0);
-	exit(0);
+	waitpid(last_pid, &i, 0);
+	ret = WEXITSTATUS(i);
+	while (wait(&i) > 0);
+	exit(ret);
 }
 
 
-
-int	ft_execute_cmd(t_cmd *cmd)
+int	ft_execute_defined_cmd(t_cmd *cmd, int *ret)
 {
-	int	pid;
+	int							pid;
+	int							status;
 
 	pid = fork();
 	if (pid < 0)
@@ -194,6 +199,27 @@ int	ft_execute_cmd(t_cmd *cmd)
 			ft_execute_simple_cmd(cmd);
 		exit(1);
 	}
-	while (wait(NULL) > 0);	
-	return pid;
+	while (wait(&status) > 0);
+	*ret = WEXITSTATUS(status);
+	return (pid);
+}
+
+int ft_execute_cmd(t_cmd *cmd, int *ret)
+{
+	t_dlist	*and_ors;
+	t_cmd	*tmpc;
+	int		pid;
+
+	and_ors = cmd->ands_ors;
+	pid = ft_execute_defined_cmd(cmd, ret);
+	while(and_ors)
+	{
+		tmpc = and_ors->content;
+		if(ret == 0 && tmpc->log == AND)
+			pid = ft_execute_defined_cmd(tmpc, ret);
+		else if (ret != 0 && tmpc->log == OR)
+			pid = ft_execute_defined_cmd(tmpc, ret);
+		and_ors = and_ors->next;
+	}
+	return (pid);
 }

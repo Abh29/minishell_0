@@ -11,6 +11,7 @@ struct s_minishell
 	char	**envp;
 	int		pid_fg;
 	char	*line;
+	int		*ret;
 } g_msh;
 
 
@@ -30,7 +31,7 @@ void	execute_cmd_list(t_dlist *cmds)
 
 	while (cmds)
 	{
-		g_msh.pid_fg = ft_execute_cmd(cmds->content);
+		g_msh.pid_fg = ft_execute_cmd(cmds->content, g_msh.ret);
 		cmds = cmds->next;
 		while (wait(&status) > 0);
 	}
@@ -72,6 +73,7 @@ int	main(int argc, char **argv, char **envp)
 	g_msh.argc =  argc;
 	g_msh.argv = argv;
 	g_msh.envp = envp;
+	g_msh.ret = malloc(sizeof(int));
 	(void) argv;
 	(void) envp;
 	(void) status;
@@ -114,3 +116,4 @@ int	main(int argc, char **argv, char **envp)
 		free(g_msh.line);
 	return (0);
 }
+//aghonjeyale9el9

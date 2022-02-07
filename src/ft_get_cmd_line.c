@@ -46,7 +46,7 @@ void	*ft_routine_2(char **line, int fd, char *msg)
 	ft_putstr_fd(msg, fd);
 	free(*line);
 	*line = NULL;
-	return (NULL);
+	return (ft_strdup("\n"));
 }
 
 char	*ft_get_cmd_line(int fd)
@@ -68,13 +68,13 @@ char	*ft_get_cmd_line(int fd)
 			ft_routine_1(&out, fd);
 		else if (err == 4)
 			return (ft_routine_2(&out, fd, \
-			"Error : syntax error unclosed parentheses !"));
+			"Error : syntax error unclosed parentheses !\n"));
 		else if (err == 5)
 			return (ft_routine_2(&out, fd, \
-			"Error : syntax error wrong parentheses order !"));
+			"Error : syntax error wrong parentheses order !\n"));
 		else if (err == 6 || err == 7)
 			return (ft_routine_2(&out, fd, \
-			"Error : unexpected syntax !"));
+			"Error : unexpected syntax !\n"));
 	}
 	return (out);
 }
