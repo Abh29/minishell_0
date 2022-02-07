@@ -17,7 +17,14 @@ add a lexer								...
 	check parentheses order
 disable	ICANON flag to getc without enter *pending
 
+add execution of a simple cmd			•done
+add redirections to execution			•done
+add pipe execution						•done / not fully tested
+add ands ors to execution				•done / not fully tested
+add get_last_return_value				•pending
+check for leaks							...
 
 for ddelena
 
-check if command exists
+add execute_builtings					...
+test minishell							...
