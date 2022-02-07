@@ -90,6 +90,16 @@ typedef enum e_builtings
 	FT_SUBSHELL
 }			t_builtings;
 
+typedef	struct s_minishell
+{
+	int		argc;
+	char	**argv;
+	char	**envp;
+	int		pid_fg;
+	char	*line;
+	int		*ret;
+}				t_global;
+
 typedef struct s_stack
 {
 	int	arr[MAX_SIZE];

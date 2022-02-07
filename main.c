@@ -4,15 +4,7 @@ t_cmd *cmd;
 int size;
 char *save;
 
-struct s_minishell
-{
-	int		argc;
-	char	**argv;
-	char	**envp;
-	int		pid_fg;
-	char	*line;
-	int		*ret;
-} g_msh;
+t_global	g_msh;
 
 
 int	execute_cmd(t_cmd *cmd)
