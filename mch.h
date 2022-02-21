@@ -35,12 +35,23 @@
 # include <fcntl.h>
 # include <errno.h>
 # include <dirent.h>
+# include <signal.h>
 
 /** defenition ***/
 # define SHELL_NAME "minishell> "
 # define MAX_SIZE 1500
 # define ACC 1
 # define DEC 2
+# define MAX_PIPE 128
+
+/** enums **/
+
+enum e_logop
+{
+	AND,
+	OR
+};
+
 
 /** typedefs **/
 
@@ -64,7 +75,8 @@ typedef struct s_cmd
 	t_dlist			*ands;
 	t_dlist			*pipe;
 	t_dlist			*ands_ors;
-	int				log;
+	enum e_logop	log;
+	int				in_out[2];
 }				t_cmd;
 
 typedef enum e_builtings
@@ -77,6 +89,16 @@ typedef enum e_builtings
 	FT_EXIT,
 	FT_SUBSHELL
 }			t_builtings;
+
+typedef	struct s_minishell
+{
+	int		argc;
+	char	**argv;
+	char	**envp;
+	int		pid_fg;
+	char	*line;
+	int		*ret;
+}				t_global;
 
 typedef struct s_stack
 {
@@ -129,6 +151,9 @@ int			ft_check_anomal_2(char *line, int *pos);
 char		*ft_get_cmd_line(int fd);
 void		ft_routine_1(char **line, int fd);
 void		*ft_routine_2(char **line, int fd, char *msg);
+
+/** execution **/
+int			ft_execute_cmd(t_cmd *cmd, int *ret);
 
 /** helpers **/
 void		ft_exit(char *msg, int err);

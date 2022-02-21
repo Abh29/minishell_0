@@ -11,10 +11,14 @@
 /* ************************************************************************** */
 
 #include "../mch.h"
-// TODO: this is for Anglina !!
 
 char	*ft_get_last_exit_status(void *args)
 {
+	extern	t_global	g_msh;
+	char				*out;
 	(void) args;
-	return (ft_strdup("0"));
+	out = ft_itoa(*(g_msh.ret));
+	if (!out)
+		out = ft_strdup("1");
+	return (out);
 }
