@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 19:17:20 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/05 20:03:21 by mehill           ###   ########.fr       */
+/*   Updated: 2022/02/21 23:29:19 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ void		ft_fill_in_redirection(t_io_red *red, char *line);
 void		ft_fill_out_redirection(t_io_red *red, char *line);
 void		execute_cmd_list(t_dlist *cmds);
 void		ft_trim_args(char **args);
+char		*ft_get_shell_line(void);
 
 /** lexer **/
 int			ft_check_parnth(char *line, int *pos);

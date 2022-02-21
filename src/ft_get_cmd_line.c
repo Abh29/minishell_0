@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 17:38:04 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/05 20:11:08 by mehill           ###   ########.fr       */
+/*   Updated: 2022/02/22 01:14:00 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ char	*ft_get_cmd_line(int fd)
 	int		pos;
 
 	ft_putstr_fd(SHELL_NAME, fd);
-	out = get_next_line(fd);
+	out = ft_get_shell_line();
+//	out = get_next_line(fd);
 	while (out)
 	{
 		ft_check_cmd_line(out, &err, &pos);

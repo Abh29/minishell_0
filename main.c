@@ -6,7 +6,6 @@ char *save;
 
 t_global	g_msh;
 
-
 int	execute_cmd(t_cmd *cmd)
 {
 	int	pid;
@@ -84,12 +83,12 @@ int	main(int argc, char **argv, char **envp)
 	g_msh.line = NULL;
 	tcgetattr(STDIN_FILENO, &oldt);
 	newt = oldt;
-//	newt.c_iflag &= ~(ICANON);
-	newt.c_iflag &= (INLCR);
+	newt.c_lflag &= ~(ICANON);
+	newt.c_lflag &= (ECHO | ECHOKE);
+//	newt.c_lflag &= ~(ECHO);
+//	newt.c_cc[VMIN] = 1;
+//	newt.c_cc[VTIME] = 0;
 	tcsetattr(STDIN_FILENO, TCSANOW, &newt);
-	char hostname[20];
- 	gethostname(hostname, 20);
- 	printf("hostname: %s\n", hostname);
 	while (1)
 	{
 		g_msh.pid_fg = 0;
@@ -111,6 +110,7 @@ int	main(int argc, char **argv, char **envp)
 	}
 	if (g_msh.line)
 		free(g_msh.line);
+	tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
 	return (0);
 }
 //aghonjeyale9el9 
