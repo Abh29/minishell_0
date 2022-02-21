@@ -15,7 +15,8 @@ add a lexer								...
 	check	unclosed quotes
 	check unclosed parentheses
 	check parentheses order
-	
+	check start
+	check after semicln
 
 
 for ddelena
