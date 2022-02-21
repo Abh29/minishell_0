@@ -44,8 +44,7 @@ void ft_list_pwd_files(void)
 }
 
 void	handle_sigint(int sig)
-{
-	(void)sig; //do nothing;
+{	(void)sig; //do nothing;
 	if (g_msh.pid_fg != 0)
 		kill(g_msh.pid_fg, sig);
 	if (g_msh.line == NULL)
@@ -70,6 +69,8 @@ int	main(int argc, char **argv, char **envp)
 	(void) envp;
 	(void) status;
 	(void) lst;
+	(void) oldt;
+	(void) newt;
 	*pwd = 0;
 	/*getcwd(pwd, sizeof(pwd));
 	printf("cwd : %s\n", pwd);
@@ -83,8 +84,12 @@ int	main(int argc, char **argv, char **envp)
 	g_msh.line = NULL;
 	tcgetattr(STDIN_FILENO, &oldt);
 	newt = oldt;
-	newt.c_iflag &= ~(ICANON);
+//	newt.c_iflag &= ~(ICANON);
+	newt.c_iflag &= (INLCR);
 	tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+	char hostname[20];
+ 	gethostname(hostname, 20);
+ 	printf("hostname: %s\n", hostname);
 	while (1)
 	{
 		g_msh.pid_fg = 0;

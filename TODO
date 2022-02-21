@@ -18,6 +18,7 @@ add a lexer								...
 	check start
 	check after semicln
 disable	ICANON flag to getc without enter *pending
+change get_next_line to stop on ^M 		•pending
 
 add execution of a simple cmd			•done
 add redirections to execution			•done
