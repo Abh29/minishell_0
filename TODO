@@ -1,0 +1,33 @@
+for mehill
+
+changing split cmd 						•done
+adding "()" FT_SUBSHELL					•done
+adding "&&" and "||"					•done
+adding "match( pattern , string )"		•done
+adding "expand_astrix"					•done
+change expand variables to the top		•done
+change redirections 					•done
+	**test ft_get_red_in				•done
+	make ft_get_red_out accordingly  	•done
+include builtings in ft_which			•pending
+remove quotes from splits   			•done
+add a lexer								...
+	check	unclosed quotes
+	check unclosed parentheses
+	check parentheses order
+	check start
+	check after semicln
+disable	ICANON flag to getc without enter *pending
+change get_next_line to stop on ^M 		•pending
+
+add execution of a simple cmd			•done
+add redirections to execution			•done
+add pipe execution						•done / not fully tested
+add ands ors to execution				•done / not fully tested
+add get_last_return_value				•done / not fully tested
+check for leaks							...
+
+for ddelena
+
+add execute_builtings					...
+test minishell							...
