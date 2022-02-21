@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 19:17:20 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/05 20:03:21 by mehill           ###   ########.fr       */
+/*   Updated: 2022/02/21 23:22:17 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,6 +194,8 @@ void		ft_printline(char *line, int n, int fd);
 /** tests  ***/
 int			ft_arg_count_2(char *line);
 char		**ft_split_args_2(char *line);
+int			ft_getchar(int fd);
+char		*ft_get_shell_line(void);
 
 #endif
 
