@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 23:19:04 by mehill            #+#    #+#             */
-/*   Updated: 2022/02/22 19:46:08 by mehill           ###   ########.fr       */
+/*   Updated: 2022/02/22 19:50:48 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,6 @@ char	*ft_which(char	*cmd, char **envp)
 	scmd = NULL;
 	if (pcmd == NULL)
 		return (ft_strdup(cmd));
-	//
+	// check for access
 	return (pcmd);
 }
