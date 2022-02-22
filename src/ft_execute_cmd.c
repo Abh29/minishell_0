@@ -180,7 +180,6 @@ void ft_pipe_cmd(t_cmd *cmd)
 	exit(ret);
 }
 
-
 int	ft_execute_defined_cmd(t_cmd *cmd, int *ret)
 {
 	int							pid;

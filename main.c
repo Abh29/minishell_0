@@ -37,17 +37,18 @@ void ft_list_pwd_files(void)
   if (d) {
     while ((dir = readdir(d)) != NULL) {
       printf("%s\n", dir->d_name);
-    }
+	}
     closedir(d);
   }
 }
 
 void	handle_sigint(int sig)
 {	(void)sig; //do nothing;
+	ft_putstr_fd("sigint\n", 1);
 	if (g_msh.pid_fg != 0)
 		kill(g_msh.pid_fg, sig);
-	if (g_msh.line == NULL)
-		free(g_msh.line);
+	g_msh.buff_idx = 0;
+	ft_reset_input_buff();
 	ft_putstr_fd("\n", 1);
 	ft_putstr_fd(SHELL_NAME, 1);
 	return ;
@@ -60,10 +61,11 @@ int	main(int argc, char **argv, char **envp)
 	t_dlist	*lst;
 	static struct termios oldt, newt;
 
-	g_msh.argc =  argc;
+	g_msh.argc = argc;
 	g_msh.argv = argv;
 	g_msh.envp = envp;
 	g_msh.ret = malloc(sizeof(int));
+	g_msh.buff_idx = 0;
 	(void) argv;
 	(void) envp;
 	(void) status;

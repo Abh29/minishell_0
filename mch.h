@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 19:17:20 by mehill            #+#    #+#             */
-/*   Updated: 2022/02/21 23:29:19 by mehill           ###   ########.fr       */
+/*   Updated: 2022/02/22 19:22:12 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ typedef enum e_builtings
 	FT_SUBSHELL
 }			t_builtings;
 
-typedef	struct s_minishell
+typedef struct s_minishell
 {
 	int		argc;
 	char	**argv;
@@ -98,6 +98,8 @@ typedef	struct s_minishell
 	int		pid_fg;
 	char	*line;
 	int		*ret;
+	char	buff[4097];
+	int		buff_idx;
 }				t_global;
 
 typedef struct s_stack
@@ -152,6 +154,7 @@ int			ft_check_anomal_2(char *line, int *pos);
 char		*ft_get_cmd_line(int fd);
 void		ft_routine_1(char **line, int fd);
 void		*ft_routine_2(char **line, int fd, char *msg);
+void		ft_reset_input_buff(void);
 
 /** execution **/
 int			ft_execute_cmd(t_cmd *cmd, int *ret);

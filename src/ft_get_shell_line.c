@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 21:43:55 by mehill            #+#    #+#             */
-/*   Updated: 2022/02/22 01:19:07 by mehill           ###   ########.fr       */
+/*   Updated: 2022/02/22 19:20:12 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,32 +25,39 @@ int	ft_getchar(int fd)
 	return (*out);
 }
 
+void	ft_reset_input_buff(void)
+{
+	extern t_global	g_msh;
+
+	while (g_msh.buff_idx > 0 && write(STDIN_FILENO, "\b \b", 3))
+		g_msh.buff_idx--;
+	ft_bzero(g_msh.buff, 4097);
+}
+
 char	*ft_get_shell_line(void)
 {
-	char	buff[4097];
-	int		i;
-	int		c;
+	extern t_global	g_msh;
+	int				c;
 
-	i = 0;
-	ft_bzero(buff, 4097);
-	while (i < 4095)
+	g_msh.buff_idx = 0;
+	ft_bzero(g_msh.buff, 4097);
+	while (g_msh.buff_idx < 4095)
 	{
 		c = ft_getchar(STDIN_FILENO);
 	//	printf("\n%d  %c  %d  >\n", c, c, i);
-		if ((c == 0 || c == 4) && i == 0)
+		if ((c == 0 || c == 4) && g_msh.buff_idx == 0)
 			return (ft_strdup("exit\n"));
 		if (c == 0 || c == 4)
 			continue ;
 		if (c == 21)
-			while (i > 0 && write(STDIN_FILENO, "\b \b", 3))
-				i--;
-		if (c == 127 && i > 0 && write(STDIN_FILENO, "\b \b", 3))
-			buff[--i] = 0;
+			ft_reset_input_buff();
+		if (c == 127 && g_msh.buff_idx > 0 && write(STDIN_FILENO, "\b \b", 3))
+			g_msh.buff[--g_msh.buff_idx] = 0;
 		else if ((ft_isprint(c) || ft_isspace(c)))
-			buff[i++] = c;
+			g_msh.buff[g_msh.buff_idx++] = c;
 		if (c == EOF || c == 10)
 			break ;
 	}
-	buff[i] = 0;
-	return (ft_strdup(buff));
+	g_msh.buff[g_msh.buff_idx] = 0;
+	return (ft_strdup(g_msh.buff));
 }

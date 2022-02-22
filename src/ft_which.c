@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 23:19:04 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/05 17:32:46 by mehill           ###   ########.fr       */
+/*   Updated: 2022/02/22 19:46:08 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ char	*ft_which(char	*cmd, char **envp)
 
 	if (!cmd || !envp || !(*envp))
 		return (NULL);
+	// builtings
 	scmd = ft_strjoin("/", cmd);
 	paths = ft_split(getenv("PATH"), ':');
 	pcmd = ft_check_possible(paths, scmd);
@@ -45,5 +46,6 @@ char	*ft_which(char	*cmd, char **envp)
 	scmd = NULL;
 	if (pcmd == NULL)
 		return (ft_strdup(cmd));
+	//
 	return (pcmd);
 }
