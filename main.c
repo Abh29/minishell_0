@@ -44,7 +44,6 @@ void ft_list_pwd_files(void)
 
 void	handle_sigint(int sig)
 {	(void)sig; //do nothing;
-	ft_putstr_fd("sigint\n", 1);
 	if (g_msh.pid_fg != 0)
 		kill(g_msh.pid_fg, sig);
 	g_msh.buff_idx = 0;
@@ -83,20 +82,23 @@ int	main(int argc, char **argv, char **envp)
 	line = ft_strdup("");*/
 	signal(SIGINT, handle_sigint);
 	g_msh.line = NULL;
-	tcgetattr(STDIN_FILENO, &oldt);
-	newt = oldt;
-	newt.c_lflag &= ~(ICANON);
-	newt.c_lflag &= (ECHO | ECHOKE);
-//	newt.c_lflag &= ~(ECHO);
+//	tcgetattr(STDIN_FILENO, &oldt);
+//	newt = oldt;
+//	newt.c_lflag &= ~(ICANON);
+//	newt.c_lflag &= (ICANON | ISIG | IEXTEN | ECHO | ECHOE | ECHOK | ECHOKE | ECHOCTL | PENDIN | FLUSHO);
+//	newt.c_lflag &= ~(ECHOPRT | ALTWERASE | NOFLSH | TOSTOP | ECHONL | NOKERNINFO | EXTPROC);
 //	newt.c_cc[VMIN] = 1;
 //	newt.c_cc[VTIME] = 0;
-	tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+//	tcsetattr(STDIN_FILENO, TCSANOW, &newt);
 	while (1)
 	{
 		g_msh.pid_fg = 0;
 		if (g_msh.line)
 			free(g_msh.line);
-		g_msh.line = ft_get_cmd_line(1);
+		//g_msh.line = ft_get_cmd_line(1);
+		g_msh.line = readline("hello > ");
+		printf("g_msh.line : %s\n", g_msh.buff);
+		printf("g_msh.index: %d\n", g_msh.buff_idx);
 		if (!g_msh.line || ft_strncmp(g_msh.line, "exit\n", 5) == 0)
 			break ;
 		if (*g_msh.line == '\n' || *g_msh.line == '\t')
@@ -105,14 +107,14 @@ int	main(int argc, char **argv, char **envp)
 		size = ft_strlen(g_msh.line);
 		save = g_msh.line;
 		lst = ft_get_cmd_list(g_msh.line, argv, envp);
-	//	ft_print_cmd_list(lst, 1);
+		//ft_print_cmd_list(lst, 1);
 		execute_cmd_list(lst);
 		while (wait(&status) > 0);
 		ft_free_cmd_list(&lst);
 	}
 	if (g_msh.line)
 		free(g_msh.line);
-	tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+//	tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
 	return (0);
 }
 //aghonjeyale9el9 

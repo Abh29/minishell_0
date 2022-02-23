@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 17:16:45 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/05 20:17:16 by mehill           ###   ########.fr       */
+/*   Updated: 2022/02/23 20:12:38 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_cmd	*ft_fill_cmd(char *line, char **argv, char **envp)
 	ft_fill_out_redirection(cmd->red, exp);
 	spt = ft_split_args(exp);
 	ft_trim_args(spt);
-	cmd->cmd_name = ft_which(spt[0], envp);
+	cmd->cmd_name = ft_which(spt[0], envp, &cmd->builting);
 	ft_expand_args_astrix(&spt);
 	cmd->envp = ft_vectdup(argv);
 	cmd->args = ft_vectdup(spt);

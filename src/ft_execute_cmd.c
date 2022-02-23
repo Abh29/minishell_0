@@ -6,7 +6,7 @@ void ft_redirect(t_cmd *cmd)
 	int		n;
 
 	if (cmd->red->fdin == 0 && cmd->red->fdout == 1 && cmd->red->limiter == NULL)
-		return ;	// no redirections
+		return ;
 	if (cmd->red->fdin < 0 || cmd->red->fdout < 0)
 		exit(1);
 	if (cmd->red->limiter)

@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 19:17:20 by mehill            #+#    #+#             */
-/*   Updated: 2022/02/22 19:22:12 by mehill           ###   ########.fr       */
+/*   Updated: 2022/02/23 20:37:11 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+# include <editline/readline.h>
+//# include <readline/history.h>
 # include <signal.h>
 # include "libft/libft.h"
 # include "gnl/get_next_line.h"
@@ -52,9 +52,7 @@ enum e_logop
 	OR
 };
 
-
 /** typedefs **/
-
 typedef struct s_io_red
 {
 	int		fdin;
@@ -63,6 +61,19 @@ typedef struct s_io_red
 	char	*limiter;
 	int		append;
 }			t_io_red;
+
+typedef enum e_builtings
+{
+	FT_ECHO,
+	FT_CD,
+	FT_EXPORT,
+	FT_UNSET,
+	FT_ENV,
+	FT_EXIT,
+	FT_PWD,
+	FT_SUBSHELL,
+	FT_NULL
+}			t_builtings;
 
 typedef struct s_cmd
 {
@@ -76,19 +87,9 @@ typedef struct s_cmd
 	t_dlist			*pipe;
 	t_dlist			*ands_ors;
 	enum e_logop	log;
+	t_builtings		builting;
 	int				in_out[2];
 }				t_cmd;
-
-typedef enum e_builtings
-{
-	FT_ECHO,
-	FT_CD,
-	FT_EXPORT,
-	FT_UNSET,
-	FT_ENV,
-	FT_EXIT,
-	FT_SUBSHELL
-}			t_builtings;
 
 typedef struct s_minishell
 {
@@ -111,7 +112,7 @@ typedef struct s_stack
 }				t_stack;
 
 /** tools ***/
-char		*ft_which(char	*cmd, char **envp);
+char		*ft_which(char	*cmd, char **envp, t_builtings *builting);
 void		ft_free_split(char ***split);
 void		ft_free_args(char ***split, int n);
 t_cmd		*ft_new_cmd(void);
@@ -169,7 +170,6 @@ int			ft_isspace(int c);
 int			ft_qts_helper(char c, int *qts);
 
 /** stack ***/
-
 t_stack		ft_newstack(void);
 void		ft_push(t_stack *s, int elm);
 int			ft_pop(t_stack *s);
@@ -179,6 +179,15 @@ int			ft_isfull(t_stack *s);
 void		ft_pushbottom(t_stack *s, int elm);
 int			ft_popbottom(t_stack *s);
 int			ft_getindex(t_stack a, int index);
+
+/** builtings **/
+void		ft_pwd(t_cmd *cmd);
+void		ft_cd(t_cmd *cmd);
+void		ft_env(t_cmd *cmd);
+void		ft_unset(t_cmd *cmd);
+void		ft_echo(t_cmd *cmd);
+void		ft_export(t_cmd *cmd);
+void		ft_subshell(t_cmd *cmd);
 
 /** create/free ***/
 t_io_red	*ft_new_io_red(void);
