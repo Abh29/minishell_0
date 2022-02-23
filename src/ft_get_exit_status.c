@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 20:28:30 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/05 20:28:51 by mehill           ###   ########.fr       */
+/*   Updated: 2022/02/23 21:42:50 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 char	*ft_get_last_exit_status(void *args)
 {
-	extern	t_global	g_msh;
+	extern t_global		g_msh;
 	char				*out;
+
 	(void) args;
 	out = ft_itoa(*(g_msh.ret));
 	if (!out)

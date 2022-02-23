@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 21:43:55 by mehill            #+#    #+#             */
-/*   Updated: 2022/02/23 14:33:39 by mehill           ###   ########.fr       */
+/*   Updated: 2022/02/23 21:43:07 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ char	*ft_get_shell_line(void)
 	while (g_msh.buff_idx < 4095)
 	{
 		c = ft_getchar(STDIN_FILENO);
-		printf("\n%d  %c  %d  >\n", c, c, g_msh.buff_idx);
 		if ((c == 0 || c == 4) && g_msh.buff_idx == 0)
 			return (ft_strdup("exit\n"));
 		if (c == 0 || c == 4)

@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 19:17:20 by mehill            #+#    #+#             */
-/*   Updated: 2022/02/23 20:37:11 by mehill           ###   ########.fr       */
+/*   Updated: 2022/02/23 21:31:13 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,17 @@ void		*ft_routine_2(char **line, int fd, char *msg);
 void		ft_reset_input_buff(void);
 
 /** execution **/
+int			ft_execute_cmd(t_cmd *cmd, int *ret);
+void		ft_redirect(t_cmd *cmd);
+void		ft_execute_builting(t_cmd *cmd);
+void		ft_execute_simple_cmd(t_cmd *cmd);
+void		ft_create_pipes(t_cmd *cmd, int pipes[][2]);
+void		ft_close_pipes(int pipesfds[][2]);
+void		ft_proc0(t_cmd *cmd, int pipefds[][2]);
+void		ft_proci(t_cmd *cmd, int pipefds[][2], int i);
+int			ft_procn(t_cmd *cmd, int pipefds[][2], int n);
+void		ft_pipe_cmd(t_cmd *cmd);
+int			ft_execute_defined_cmd(t_cmd *cmd, int *ret);
 int			ft_execute_cmd(t_cmd *cmd, int *ret);
 
 /** helpers **/

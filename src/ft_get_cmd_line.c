@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 17:38:04 by mehill            #+#    #+#             */
-/*   Updated: 2022/02/22 01:14:00 by mehill           ###   ########.fr       */
+/*   Updated: 2022/02/23 21:54:31 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,25 +57,21 @@ char	*ft_get_cmd_line(int fd)
 
 	ft_putstr_fd(SHELL_NAME, fd);
 	out = ft_get_shell_line();
-//	out = get_next_line(fd);
-	while (out)
-	{
-		ft_check_cmd_line(out, &err, &pos);
-		if (err == 0)
-			break ;
-		if (err == 2)
-			ft_routine_ctrl_d(&out, fd);
-		if (err == 3)
-			ft_routine_1(&out, fd);
-		else if (err == 4)
-			return (ft_routine_2(&out, fd, \
-			"Error : syntax error unclosed parentheses !\n"));
-		else if (err == 5)
-			return (ft_routine_2(&out, fd, \
-			"Error : syntax error wrong parentheses order !\n"));
-		else if (err == 6 || err == 7)
-			return (ft_routine_2(&out, fd, \
-			"Error : unexpected syntax !\n"));
-	}
+	ft_check_cmd_line(out, &err, &pos);
+	if (err == 0)
+		return (out);
+	if (err == 2)
+		ft_routine_ctrl_d(&out, fd);
+	if (err == 3)
+		ft_routine_1(&out, fd);
+	else if (err == 4)
+		return (ft_routine_2(&out, fd, \
+		"Error : syntax error unclosed parentheses !\n"));
+	else if (err == 5)
+		return (ft_routine_2(&out, fd, \
+		"Error : syntax error wrong parentheses order !\n"));
+	else if (err == 6 || err == 7)
+		return (ft_routine_2(&out, fd, \
+		"Error : unexpected syntax !\n"));
 	return (out);
 }

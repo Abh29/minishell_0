@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 19:07:08 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/05 20:23:29 by mehill           ###   ########.fr       */
+/*   Updated: 2022/02/23 21:42:01 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,7 @@ int	ft_check_parnth(char *line, int *pos)
 		(*pos)++;
 		line++;
 	}
-	if (prth > 0)
-		return (4);
-	return (0);
+	return ((prth > 0) * 4);
 }
 
 int	ft_check_quts(char *line, int *pos)
