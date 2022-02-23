@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mch.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: ddelena <ddelena@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 19:17:20 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/05 20:03:21 by mehill           ###   ########.fr       */
+/*   Updated: 2022/02/23 19:17:14 by ddelena          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ typedef struct s_stack
 }				t_stack;
 
 /** tools ***/
-char		*ft_which(char	*cmd, char **envp);
+char		*ft_which(char	*cmd, char **envp, t_cmd *cmd_struct, char **argv);
 void		ft_free_split(char ***split);
 void		ft_free_args(char ***split, int n);
 t_cmd		*ft_new_cmd(void);
