@@ -214,9 +214,9 @@ int ft_execute_cmd(t_cmd *cmd, int *ret)
 	while(and_ors)
 	{
 		tmpc = and_ors->content;
-		if(ret == 0 && tmpc->log == AND)
+		if(*ret == 0 && tmpc->log == AND)
 			pid = ft_execute_defined_cmd(tmpc, ret);
-		else if (ret != 0 && tmpc->log == OR)
+		else if (*ret != 0 && tmpc->log == OR)
 			pid = ft_execute_defined_cmd(tmpc, ret);
 		and_ors = and_ors->next;
 	}
