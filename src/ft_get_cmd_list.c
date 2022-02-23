@@ -6,13 +6,12 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 17:15:55 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/05 20:33:46 by mehill           ###   ########.fr       */
+/*   Updated: 2022/02/23 22:14:11 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mch.h"
 
-// FIXME: derefrencing of (line - 1)!
 char	*ft_get_next_cemicln(char *line)
 {
 	int		qts;

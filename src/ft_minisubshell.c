@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 20:29:48 by mehill            #+#    #+#             */
-/*   Updated: 2022/02/23 22:04:46 by mehill           ###   ########.fr       */
+/*   Updated: 2022/02/23 22:22:33 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_subshell(t_cmd *cmd)
 	if (cmd->cmd_name[0] == '(')
 		cmd->cmd_name++;
 	if (cmd->cmd_name[ft_strlen(cmd->cmd_name) - 1] == ')')
-		cmd->cmd_name[ft_strlen(cmd->cmd_name) - 1] = 0;
+		cmd->cmd_name[ft_strlen(cmd->cmd_name) - 1] = '\n';
 	ft_check_cmd_line(cmd->cmd_name, &err, &pos);
 	if (err != 0)
 		exit (err);
