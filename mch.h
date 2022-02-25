@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 19:17:20 by mehill            #+#    #+#             */
-/*   Updated: 2022/02/23 21:31:13 by mehill           ###   ########.fr       */
+/*   Updated: 2022/02/26 01:44:48 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 # include <errno.h>
 # include <dirent.h>
 # include <signal.h>
+# include <string.h>
 
 /** defenition ***/
 # define SHELL_NAME "minishell> "
@@ -101,6 +102,7 @@ typedef struct s_minishell
 	int		*ret;
 	char	buff[4097];
 	int		buff_idx;
+	int		envp_fd;
 }				t_global;
 
 typedef struct s_stack
@@ -144,6 +146,8 @@ void		ft_fill_out_redirection(t_io_red *red, char *line);
 void		execute_cmd_list(t_dlist *cmds);
 void		ft_trim_args(char **args);
 char		*ft_get_shell_line(void);
+void		ft_get_envp(void);
+void		ft_set_envp(void);
 
 /** lexer **/
 int			ft_check_parnth(char *line, int *pos);
@@ -192,13 +196,25 @@ int			ft_popbottom(t_stack *s);
 int			ft_getindex(t_stack a, int index);
 
 /** builtings **/
-void		ft_pwd(t_cmd *cmd);
-void		ft_cd(t_cmd *cmd);
-void		ft_env(t_cmd *cmd);
-void		ft_unset(t_cmd *cmd);
-void		ft_echo(t_cmd *cmd);
-void		ft_export(t_cmd *cmd);
+void		ft_pwd(void);
+int			ft_env(void);
+int			ft_cd(t_cmd *cmd, t_list **env, char **env_line, t_global *g_msh);
+int			ft_unset(t_list **env, char **env_line, char **argv);
+int			ft_echo(int argc, char **argv);
+int			ft_export(t_cmd *cmd, t_list **env, char **env_line, \
+			t_global *g_msh);
 void		ft_subshell(t_cmd *cmd);
+
+/** builting utils **/
+int			print_error(void);
+char		**ft_lst_get_array(t_list *lst);
+void		*memory_error(size_t size);
+t_list		*ft_lstpop_find(t_list **lst, char *key);
+int			ft_keylen(char *keyval);
+void		remove_elem_from_envp(t_list **env, char *key, char **env_line);
+int			ft_split_len(char **arr);
+char		**insert_or_update_elem_from_envp(t_global *g_msh, \
+			t_list **env, char *keyval, char **env_line);
 
 /** create/free ***/
 t_io_red	*ft_new_io_red(void);

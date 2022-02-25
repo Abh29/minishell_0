@@ -6,28 +6,45 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 21:19:33 by mehill            #+#    #+#             */
-/*   Updated: 2022/02/23 21:35:23 by mehill           ###   ########.fr       */
+/*   Updated: 2022/02/26 01:53:51 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mch.h"
 
+t_list	*init_env(char **envp)
+{
+	t_list	*env;
+
+	env = NULL;
+	while (*envp)
+		ft_lstadd_back(&env, ft_lstnew(ft_strdup(*envp++)));
+	return (env);
+}
+
 void	ft_execute_builting(t_cmd *cmd)
 {
+	extern t_global	g_msh;
+	t_list			*env;
+	char			**env_line;
+
+	ft_get_envp();
+	env = init_env(g_msh.envp);
+	env_line = ft_lst_get_array(env);
 	if (!cmd)
 		return ;
 	if (cmd->builting == FT_ENV)
-		ft_env(cmd);
+		ft_env();
 	else if (cmd->builting == FT_UNSET)
-		ft_unset(cmd);
+		ft_unset(&env, env_line, cmd->args);
 	else if (cmd->builting == FT_ECHO)
-		ft_echo(cmd);
+		ft_echo(1, cmd->args);
 	else if (cmd->builting == FT_CD)
-		ft_cd(cmd);
+		ft_cd(cmd, &env, env_line, &g_msh);
 	else if (cmd->builting == FT_PWD)
-		ft_pwd(cmd);
+		ft_pwd();
 	else if (cmd->builting == FT_EXPORT)
-		ft_export(cmd);
+		ft_export(cmd, &env, env_line, &g_msh);
 	else if (cmd->builting == FT_SUBSHELL)
 		ft_subshell(cmd);
 }

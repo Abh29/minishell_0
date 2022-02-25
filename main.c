@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 21:15:56 by mehill            #+#    #+#             */
-/*   Updated: 2022/02/23 21:58:40 by mehill           ###   ########.fr       */
+/*   Updated: 2022/02/26 01:58:56 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,47 @@ void	init_global_msh(int argc, char **argv, char **envp)
 {
 	g_msh.argc = argc;
 	g_msh.argv = argv;
-	g_msh.envp = envp;
+	g_msh.envp = ft_vectdup(envp);
 	g_msh.ret = malloc(sizeof(int));
 	g_msh.buff_idx = 0;
+	g_msh.envp_fd = -1;
+	ft_set_envp();
+}
+
+void	ft_set_envp(void)
+{
+	int			i;
+
+	i = 0;
+	g_msh.envp_fd = open("./.__envp__", O_CREAT | O_RDWR | O_TRUNC, 0775);
+	while (g_msh.envp[i])
+	{
+		write(g_msh.envp_fd, g_msh.envp[i], ft_strlen(g_msh.envp[i]));
+		write(g_msh.envp_fd, "\n", 1);
+		i++;
+	}
+	close(g_msh.envp_fd);
+}
+
+void	ft_get_envp(void)
+{
+	char		*line;
+	int			i;
+	extern char	**environ;
+
+	g_msh.envp_fd = open("./.__envp__", O_RDONLY, 775);
+	i = 0;
+	line = get_next_line(g_msh.envp_fd);
+	printf("%s\n", line);
+	while (line)
+	{
+		line[ft_strlen(line) - 1] = 0;
+		if (g_msh.envp[i])
+			free(g_msh.envp[i]);
+		g_msh.envp[i++] = line;
+		line = get_next_line(g_msh.envp_fd);
+	}
+	close(g_msh.envp_fd);
 }
 
 void	handle_sigint(int sig)
@@ -76,5 +114,6 @@ int	main(int argc, char **argv, char **envp)
 	}
 	if (g_msh.line)
 		free(g_msh.line);
+	close(g_msh.envp_fd);
 	return (0);
 }

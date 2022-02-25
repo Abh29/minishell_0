@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 23:24:19 by mehill            #+#    #+#             */
-/*   Updated: 2021/10/25 19:54:42 by mehill           ###   ########.fr       */
+/*   Updated: 2022/02/26 00:58:47 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,11 @@ char	**ft_vectdup(char **vect)
 	}
 	out[i] = NULL;
 	return (out);
+}
+
+int	print_error(void)
+{
+	ft_putstr_fd(strerror(errno), 2);
+	write(2, "\n", 2);
+	return (1);
 }
