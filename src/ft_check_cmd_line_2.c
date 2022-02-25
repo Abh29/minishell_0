@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 19:28:38 by mehill            #+#    #+#             */
-/*   Updated: 2022/02/26 02:41:23 by mehill           ###   ########.fr       */
+/*   Updated: 2022/02/26 02:45:05 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,18 @@ int	ft_check_anomal_1(char *line, int *pos)
 	return (0);
 }
 
+int	helper_one(char **l)
+{
+	char	*line;
+
+	line = *l;
+	if (*(line + 1) == '|')
+		line++;
+	if (ft_next_accepted_char(line + 1, "><|&-") == NULL)
+		return (7);
+	return (0);
+}
+
 int	ft_check_anomal_2(char *line, int *pos)
 {
 	int	qts;
@@ -78,12 +90,8 @@ int	ft_check_anomal_2(char *line, int *pos)
 				return (6);
 		}
 		else if (qts == 0 && *line == '|')
-		{
-			if (*(line + 1) == '|')
-				line++;
-			if (ft_next_accepted_char(line + 1, "><|&-") == NULL)
+			if (helper_one(&line) != 0)
 				return (7);
-		}
 		(*pos)++;
 		line++;
 	}
