@@ -6,11 +6,45 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 20:29:26 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/05 20:29:34 by mehill           ###   ########.fr       */
+/*   Updated: 2022/02/26 02:22:27 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mch.h"
+
+int	part_one(char **pattern, char **str)
+{
+	char	*p;
+	char	*s;
+
+	p = *pattern;
+	s = *str;
+	while (*p && *p != '*' && *s)
+	{
+		if (*s != *p)
+			return (0);
+		s++;
+		p++;
+	}
+	return (1);
+}
+
+int	part_two(char *pattern, char *save)
+{
+	int	i;
+	int	j;
+
+	i = ft_strlen(pattern) - 1;
+	j = ft_strlen(save) - 1;
+	while (i >= 0 && j >= 0 && pattern[i] != '*' && pattern[i] == save[j])
+	{
+		i--;
+		j--;
+	}
+	if (pattern[i] != '*' && i != j)
+		return (0);
+	return (1);
+}
 
 int	ft_match_astrix(char *pattern, char *str)
 {
@@ -18,17 +52,11 @@ int	ft_match_astrix(char *pattern, char *str)
 	char	*p;
 	char	*save;
 	int		i;
-	int		j;
 
 	save = str;
 	spt = NULL;
-	while (*pattern && *pattern != '*' && *str)
-	{
-		if (*str != *pattern)
-			return (0);
-		str++;
-		pattern++;
-	}
+	if (part_one(&pattern, &str) == 0)
+		return (0);
 	spt = ft_split(pattern, '*');
 	i = 0;
 	while (spt[i])
@@ -41,14 +69,5 @@ int	ft_match_astrix(char *pattern, char *str)
 	}
 	if (spt)
 		ft_free_split(&spt);
-	i = ft_strlen(pattern) - 1;
-	j = ft_strlen(save) - 1;
-	while (i >= 0 && j >= 0 && pattern[i] != '*' && pattern[i] == save[j])
-	{
-		i--;
-		j--;
-	}
-	if (pattern[i] != '*' && i != j)
-		return (0);
-	return (1);
+	return (part_two(pattern, save));
 }
