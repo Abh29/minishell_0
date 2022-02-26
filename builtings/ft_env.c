@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 12:14:01 by ddelena           #+#    #+#             */
-/*   Updated: 2022/02/26 01:46:47 by mehill           ###   ########.fr       */
+/*   Updated: 2022/02/26 03:08:26 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,5 @@ int	ft_env(void)
 		ft_putstr_fd(g_msh.envp[i++], 1);
 		write (1, "\n", 1);
 	}
-	return (0);
+	exit(0);
 }
