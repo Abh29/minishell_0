@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 21:15:56 by mehill            #+#    #+#             */
-/*   Updated: 2022/02/26 01:58:56 by mehill           ###   ########.fr       */
+/*   Updated: 2022/02/26 02:58:36 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	ft_get_envp(void)
 	g_msh.envp_fd = open("./.__envp__", O_RDONLY, 775);
 	i = 0;
 	line = get_next_line(g_msh.envp_fd);
-	printf("%s\n", line);
 	while (line)
 	{
 		line[ft_strlen(line) - 1] = 0;

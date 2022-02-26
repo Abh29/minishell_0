@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 21:19:33 by mehill            #+#    #+#             */
-/*   Updated: 2022/02/26 01:53:51 by mehill           ###   ########.fr       */
+/*   Updated: 2022/02/26 02:57:05 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_execute_builting(t_cmd *cmd)
 	else if (cmd->builting == FT_UNSET)
 		ft_unset(&env, env_line, cmd->args);
 	else if (cmd->builting == FT_ECHO)
-		ft_echo(1, cmd->args);
+		ft_echo(cmd);
 	else if (cmd->builting == FT_CD)
 		ft_cd(cmd, &env, env_line, &g_msh);
 	else if (cmd->builting == FT_PWD)

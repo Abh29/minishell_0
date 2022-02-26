@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 19:17:20 by mehill            #+#    #+#             */
-/*   Updated: 2022/02/26 01:44:48 by mehill           ###   ########.fr       */
+/*   Updated: 2022/02/26 02:54:58 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,7 @@ void		ft_pwd(void);
 int			ft_env(void);
 int			ft_cd(t_cmd *cmd, t_list **env, char **env_line, t_global *g_msh);
 int			ft_unset(t_list **env, char **env_line, char **argv);
-int			ft_echo(int argc, char **argv);
+int			ft_echo(t_cmd *cmd);
 int			ft_export(t_cmd *cmd, t_list **env, char **env_line, \
 			t_global *g_msh);
 void		ft_subshell(t_cmd *cmd);
