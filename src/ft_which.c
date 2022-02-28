@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 23:19:04 by mehill            #+#    #+#             */
-/*   Updated: 2022/02/26 03:17:14 by mehill           ###   ########.fr       */
+/*   Updated: 2022/03/01 00:54:31 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ static char	*ft_check_possible(char	**paths, char *scmd)
 {
 	char	*pcmd;
 
+	if (paths == NULL || *paths == NULL)
+		return (NULL);
 	pcmd = NULL;
 	while (*paths)
 	{
@@ -59,15 +61,20 @@ char	*ft_which(char	*cmd, char **envp, t_builtings *builting)
 	char	**paths;
 	char	*scmd;
 	char	*pcmd;
+	char	*path;
 
 	if (!cmd || !envp || !(*envp))
 		return (NULL);
 	ft_check_builtings(cmd, builting);
 	scmd = ft_strjoin("/", cmd);
-	paths = ft_split(getenv("PATH"), ':');
+	path = ft_getenv("PATH");
+	paths = ft_split(path, ':');
 	pcmd = ft_check_possible(paths, scmd);
 	ft_free_split(&paths);
-	free(scmd);
+	if (scmd)
+		free(scmd);
+	if (path)
+		free(path);
 	scmd = NULL;
 	if (pcmd == NULL)
 		return (ft_strdup(cmd));

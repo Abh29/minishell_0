@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 19:06:16 by mehill            #+#    #+#             */
-/*   Updated: 2021/12/05 20:15:52 by mehill           ###   ########.fr       */
+/*   Updated: 2022/03/01 00:44:11 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,9 @@ char	*ft_helper_1(char **p)
 {
 	char	*var;
 
-	var = getenv(*p);
+	var = ft_getenv(*p);
 	if (var == NULL)
 		var = ft_strdup("");
-	else
-		var = ft_strdup(var);
 	free(*p);
 	return (var);
 }

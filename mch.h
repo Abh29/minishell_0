@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 19:17:20 by mehill            #+#    #+#             */
-/*   Updated: 2022/02/26 02:54:58 by mehill           ###   ########.fr       */
+/*   Updated: 2022/03/01 01:01:54 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ void		ft_trim_args(char **args);
 char		*ft_get_shell_line(void);
 void		ft_get_envp(void);
 void		ft_set_envp(void);
+char		*ft_getenv(char *key);
 
 /** lexer **/
 int			ft_check_parnth(char *line, int *pos);
