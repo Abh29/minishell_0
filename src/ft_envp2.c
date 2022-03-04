@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 00:57:37 by mehill            #+#    #+#             */
-/*   Updated: 2022/03/05 00:09:07 by mehill           ###   ########.fr       */
+/*   Updated: 2022/03/05 00:22:43 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ void	ft_setenv(char *key, char *val)
 	char			**new_envp;
 	extern t_global	g_msh;
 
-	if (key == NULL || val == NULL)
-		return ;
 	i = 0;
 	if (ft_updatenv(key, val) == 0)
 	{

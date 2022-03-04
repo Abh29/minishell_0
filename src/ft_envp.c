@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 00:57:37 by mehill            #+#    #+#             */
-/*   Updated: 2022/03/04 23:18:03 by mehill           ###   ########.fr       */
+/*   Updated: 2022/03/05 00:21:41 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +49,18 @@ void	ft_get_envp(void)
 	i = 0;
 	g_msh.envp_fd = open("/tmp/.__envp__", O_RDONLY, 775);
 	size = get_next_line(g_msh.envp_fd);
-	if (size && ft_atoi(size) > i)
+	new_env = ft_calloc(ft_atoi(size) + 1, sizeof(char *));
+	if (g_msh.envp == NULL)
+		ft_exit("Error : coult not allocate memory for envp !\n", 1);
+	line = get_next_line(g_msh.envp_fd);
+	while (line)
 	{
-		new_env = ft_calloc(ft_atoi(size) + 1, sizeof(char *));
-		if (g_msh.envp == NULL)
-			ft_exit("Error : coult not allocate memory for envp !\n", 1);
+		line[ft_strlen(line) - 1] = 0;
+		new_env[i++] = line;
 		line = get_next_line(g_msh.envp_fd);
-		while (line)
-		{
-			line[ft_strlen(line) - 1] = 0;
-			new_env[i++] = line;
-			line = get_next_line(g_msh.envp_fd); 
-		}
-		new_env[i] = NULL;
-		ft_free_split(&g_msh.envp);
-		g_msh.envp = new_env;
 	}
+	new_env[i] = NULL;
+	ft_free_split(&g_msh.envp);
+	g_msh.envp = new_env;
 	close(g_msh.envp_fd);
 }
