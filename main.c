@@ -6,14 +6,13 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 21:15:56 by mehill            #+#    #+#             */
-/*   Updated: 2022/03/04 23:22:39 by mehill           ###   ########.fr       */
+/*   Updated: 2022/03/05 00:13:37 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mch.h"
 
 t_global	g_msh;
-
 
 void	init_global_msh(int argc, char **argv, char **envp)
 {

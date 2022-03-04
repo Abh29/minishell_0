@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_envp.c                                          :+:      :+:    :+:   */
+/*   ft_envp2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 00:57:37 by mehill            #+#    #+#             */
-/*   Updated: 2022/03/04 02:52:48 by mehill           ###   ########.fr       */
+/*   Updated: 2022/03/05 00:09:07 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,22 @@
 char	*ft_getenv(char *key)
 {
 	extern t_global	g_msh;
-	char			**sep;
-	char			*out;
 	int				i;
+	int				size;
 
 	if (key == NULL)
 		return (NULL);
 	ft_get_envp();
 	i = 0;
-	while (g_msh.envp[i] && ft_strchr(g_msh.envp[i], '='))
+	key = ft_strjoin(key, "=");
+	size = ft_strlen(key);
+	while (key && g_msh.envp[i])
 	{
-		sep = ft_split(g_msh.envp[i], '=');
-		if (sep[0] && sep[1])
+		if (ft_strncmp(key, g_msh.envp[i], size) == 0)
 		{
-			if (ft_strncmp(sep[0], key, ft_strlen(sep[0])) == 0)
-			{
-				out = ft_strdup(sep[1]);
-				ft_free_split(&sep);
-				return (out);
-			}
+			free(key);
+			return (ft_strdup(g_msh.envp[i] + size));
 		}
-		ft_free_split(&sep);
 		i++;
 	}
 	return (NULL);

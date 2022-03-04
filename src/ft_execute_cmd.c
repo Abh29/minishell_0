@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 21:19:33 by mehill            #+#    #+#             */
-/*   Updated: 2022/03/04 02:30:41 by mehill           ###   ########.fr       */
+/*   Updated: 2022/03/05 00:17:33 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,12 @@ void	ft_execute_simple_cmd(t_cmd *cmd)
 	ft_redirect(cmd);
 	ft_get_envp();
 	if (cmd->builting == FT_NULL)
-		execve(cmd->cmd_name, cmd->args, g_msh.envp);
+	{
+		if (access(cmd->cmd_name, F_OK | X_OK) == 0)
+			execve(cmd->cmd_name, cmd->args, g_msh.envp);
+		else
+			perror(cmd->cmd_name);
+	}
 	else
 		ft_execute_builting(cmd);
 	exit(1);
