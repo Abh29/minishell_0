@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 21:15:56 by mehill            #+#    #+#             */
-/*   Updated: 2022/03/05 00:13:37 by mehill           ###   ########.fr       */
+/*   Updated: 2022/03/05 01:39:23 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ int	main(int argc, char **argv, char **envp)
 		g_msh.line[ft_strlen(g_msh.line) - 1] = 0;
 		lst = ft_get_cmd_list(g_msh.line, argv, g_msh.envp);
 		execute_cmd_list(lst);
-		//ft_print_cmd_list(lst, 1);
 		while (wait(&status) > 0)
 			(void) status;
 		ft_set_pwd();
@@ -89,6 +88,5 @@ int	main(int argc, char **argv, char **envp)
 	}
 	if (g_msh.line)
 		free(g_msh.line);
-	close(g_msh.envp_fd);
 	return (0);
 }

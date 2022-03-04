@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 12:14:06 by ddelena           #+#    #+#             */
-/*   Updated: 2022/03/04 03:02:08 by mehill           ###   ########.fr       */
+/*   Updated: 2022/03/05 00:36:44 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,28 +36,35 @@ void	ft_sort_env(char **arr, int (*f)(const char *, const char *, size_t))
 	}
 }
 
+void	ft_export_log(void)
+{
+	extern t_global	g_msh;
+	char			**cpy;
+	int				i;
+
+	i = 1;
+	cpy = ft_vectdup(g_msh.envp);
+	ft_sort_env(cpy, ft_strncmp);
+	while (cpy[i])
+	{
+		ft_putstr_fd("declare -x ", STDOUT_FILENO);
+		ft_putstr_fd(cpy[i], STDOUT_FILENO);
+		ft_putstr_fd("\n", STDOUT_FILENO);
+		i++;
+	}
+	ft_free_split(&cpy);
+}
+
 void	ft_export(t_cmd *cmd)
 {
 	int				i;
 	char			*p;
-	char			**cpy;
 	extern t_global	g_msh;
 
 	i = 1;
 	ft_get_envp();
 	if (cmd->args[1] == NULL)
-	{
-		cpy = ft_vectdup(g_msh.envp);
-		ft_sort_env(cpy, ft_strncmp);
-		while (cpy[i])
-		{
-			ft_putstr_fd("declare -x ", STDOUT_FILENO);
-			ft_putstr_fd(cpy[i], STDOUT_FILENO);
-			ft_putstr_fd("\n", STDOUT_FILENO);
-			i++;
-		}
-		ft_free_split(&cpy);
-	}
+		ft_export_log();
 	else
 	{
 		while (cmd->args[i])

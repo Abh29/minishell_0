@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 00:57:37 by mehill            #+#    #+#             */
-/*   Updated: 2022/03/05 00:22:43 by mehill           ###   ########.fr       */
+/*   Updated: 2022/03/05 00:32:55 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*ft_getenv(char *key)
 	return (NULL);
 }
 
-int		ft_updatenv(char *key, char *val)
+int	ft_updatenv(char *key, char *val)
 {
 	char			*env;
 	char			*newenv;
@@ -72,7 +72,7 @@ void	ft_setenv(char *key, char *val)
 	extern t_global	g_msh;
 
 	i = 0;
-	if (ft_updatenv(key, val) == 0)
+	if (key && val && ft_updatenv(key, val) == 0)
 	{
 		while (g_msh.envp[i])
 			i++;
@@ -94,17 +94,15 @@ void	ft_setenv(char *key, char *val)
 	}
 }
 
-int		ft_dellenv(char *key)
+int	ft_dellenv(char *key)
 {
 	char			*env;
 	int				i;
 	extern t_global	g_msh;
 
-	if (key == NULL || *key == 0)
-		return (0);
 	i = 0;
 	env = ft_getenv(key);
-	if (env)
+	if (key && *key && env)
 	{
 		free(env);
 		key = ft_strjoin(key, "=");
@@ -118,8 +116,7 @@ int		ft_dellenv(char *key)
 		}
 		g_msh.envp[i] = NULL;
 		free(key);
-		if (env)
-			free(env);
+		free(env);
 		return (1);
 	}
 	return (0);

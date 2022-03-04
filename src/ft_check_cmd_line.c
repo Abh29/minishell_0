@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 19:07:08 by mehill            #+#    #+#             */
-/*   Updated: 2022/02/23 21:42:01 by mehill           ###   ########.fr       */
+/*   Updated: 2022/03/05 01:40:15 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,22 +39,24 @@ int	ft_check_parnth(char *line, int *pos)
 	int	prth;
 	int	qts;
 
+	(void) pos;
 	prth = 0;
-	*pos = 0;
+	qts = 0;
 	while (*line)
 	{
-		if (ft_qts_helper(*line, &qts))
-			(void) pos;
+		if (ft_qts_helper(*line, &qts) && line++)
+			continue ;
 		else if (qts == 0 && *line == '(')
 			prth++;
 		else if (qts == 0 && *line == ')')
 			prth--;
 		if (prth < 0)
 			return (5);
-		(*pos)++;
 		line++;
 	}
-	return ((prth > 0) * 4);
+	if (prth > 0)
+		prth = 1;
+	return (prth * 4);
 }
 
 int	ft_check_quts(char *line, int *pos)

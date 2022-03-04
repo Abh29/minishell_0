@@ -6,11 +6,18 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 20:28:30 by mehill            #+#    #+#             */
-/*   Updated: 2022/02/23 21:42:50 by mehill           ###   ########.fr       */
+/*   Updated: 2022/03/05 01:47:41 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mch.h"
+
+void	ft_set_exit_status(int status)
+{
+	extern t_global		g_msh;
+
+	*(g_msh.ret) = status;
+}
 
 char	*ft_get_last_exit_status(void *args)
 {

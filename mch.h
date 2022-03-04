@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 19:17:20 by mehill            #+#    #+#             */
-/*   Updated: 2022/03/04 23:28:51 by mehill           ###   ########.fr       */
+/*   Updated: 2022/03/05 01:45:54 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ t_dlist		*ft_get_cmd_list(char *line, char **argv, char **envp);
 char		*ft_get_next_dollar(char *str);
 char		*ft_expand_dollar(char *arg);
 char		*ft_get_last_exit_status(void *args);
+void		ft_set_exit_status(int status);
 char		**ft_expand_args(char **args);
 t_dlist		*ft_get_pipes_list(char *line, char **argv, char **envp);
 char		*ft_next_logical_op(char *line);
@@ -159,7 +160,7 @@ int			ft_check_anomal_0(char *line, int *pos);
 int			ft_check_anomal_1(char *line, int *pos);
 int			ft_check_anomal_2(char *line, int *pos);
 char		*ft_get_cmd_line(int fd);
-void		ft_routine_1(char **line, int fd);
+char		*t_routine_1(char **line, int fd);
 void		*ft_routine_2(char **line, int fd, char *msg);
 void		ft_reset_input_buff(void);
 
