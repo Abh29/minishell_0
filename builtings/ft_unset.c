@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 12:14:10 by ddelena           #+#    #+#             */
-/*   Updated: 2022/02/26 01:41:03 by mehill           ###   ########.fr       */
+/*   Updated: 2022/03/04 02:32:24 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char **list_to_array(t_list *env)
     return (out);
 }
 
-int ft_unset(t_list **env, char **env_line, char **argv)
+int ft_unset2(t_list **env, char **env_line, char **argv)
 {
     t_list *dup_env;
     int     i;
@@ -109,4 +109,10 @@ int ft_unset(t_list **env, char **env_line, char **argv)
     g_msh.envp = list_to_array(*env);
 	ft_set_envp();
     return (1);
+}
+
+void	ft_unset(t_cmd *cmd)
+{
+	(void) cmd;
+	exit(0);
 }

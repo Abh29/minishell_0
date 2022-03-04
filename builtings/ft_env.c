@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 12:14:01 by ddelena           #+#    #+#             */
-/*   Updated: 2022/02/26 03:08:26 by mehill           ###   ########.fr       */
+/*   Updated: 2022/03/04 02:27:51 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@ int	ft_env(void)
 {
 	extern t_global	g_msh;
 	int				i;
-
+printf("you are in ft_env\n");
 	i = 0;
 	ft_get_envp();
+	
 	while (g_msh.envp[i])
 	{
 		ft_putstr_fd(g_msh.envp[i++], 1);

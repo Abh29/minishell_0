@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 19:17:20 by mehill            #+#    #+#             */
-/*   Updated: 2022/03/01 01:01:54 by mehill           ###   ########.fr       */
+/*   Updated: 2022/03/04 02:39:53 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,7 @@ char		*ft_get_shell_line(void);
 void		ft_get_envp(void);
 void		ft_set_envp(void);
 char		*ft_getenv(char *key);
+void		ft_setenv(char *key, char *val);
 
 /** lexer **/
 int			ft_check_parnth(char *line, int *pos);
@@ -199,11 +200,10 @@ int			ft_getindex(t_stack a, int index);
 /** builtings **/
 void		ft_pwd(void);
 int			ft_env(void);
-int			ft_cd(t_cmd *cmd, t_list **env, char **env_line, t_global *g_msh);
-int			ft_unset(t_list **env, char **env_line, char **argv);
+int			ft_cd(t_cmd *cmd);
+void		ft_unset(t_cmd *cmd);
 int			ft_echo(t_cmd *cmd);
-int			ft_export(t_cmd *cmd, t_list **env, char **env_line, \
-			t_global *g_msh);
+void		ft_export(t_cmd *cmd);
 void		ft_subshell(t_cmd *cmd);
 
 /** builting utils **/

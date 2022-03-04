@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 23:21:20 by mehill            #+#    #+#             */
-/*   Updated: 2021/11/22 19:27:15 by mehill           ###   ########.fr       */
+/*   Updated: 2022/03/04 01:58:47 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	ft_print_cmd(t_cmd *cmd, int fd)
 	ft_putstr_fd("log : ", fd);
 	ft_putnbr_fd(cmd->log, fd);
 	ft_putstr_fd("\n", fd);
+	printf("builtings = %d\n", cmd->builting);
 }
 
 void	ft_print_cmd_list(t_dlist *cmds, int fd)

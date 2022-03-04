@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 21:15:56 by mehill            #+#    #+#             */
-/*   Updated: 2022/03/01 01:13:32 by mehill           ###   ########.fr       */
+/*   Updated: 2022/03/04 03:00:43 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,18 @@ void	handle_sigint(int sig)
 	return ;
 }
 
+void	ft_set_pwd(void)
+{
+	char	*pwd;
+
+	pwd = ft_getenv("PWD");
+	if (pwd)
+	{
+		chdir(pwd);
+		free(pwd);
+	}
+}
+
 int	main_helper(void)
 {
 	ft_get_envp();
@@ -62,6 +74,7 @@ int	main_helper(void)
 		return (1);
 	if (*g_msh.line == '\n' || *g_msh.line == '\t')
 		return (2);
+	ft_set_pwd();
 	return (0);
 }
 
@@ -76,6 +89,7 @@ int	main(int argc, char **argv, char **envp)
 	g_msh.line = NULL;
 	while (1)
 	{
+		printf("you are in main\n");
 		r = main_helper();
 		if (r == 1)
 			break ;
@@ -84,6 +98,7 @@ int	main(int argc, char **argv, char **envp)
 		g_msh.line[ft_strlen(g_msh.line) - 1] = 0;
 		lst = ft_get_cmd_list(g_msh.line, argv, g_msh.envp);
 		execute_cmd_list(lst);
+		//ft_print_cmd_list(lst, 1);
 		while (wait(&status) > 0)
 			(void) status;
 		ft_free_cmd_list(&lst);

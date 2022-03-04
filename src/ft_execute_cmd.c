@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 21:19:33 by mehill            #+#    #+#             */
-/*   Updated: 2022/03/01 00:23:49 by mehill           ###   ########.fr       */
+/*   Updated: 2022/03/04 02:30:41 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,33 +25,31 @@ t_list	*init_env(char **envp)
 void	ft_execute_builting(t_cmd *cmd)
 {
 	extern t_global	g_msh;
-	t_list			*env;
-	char			**env_line;
 
-	ft_get_envp();
-	env = init_env(g_msh.envp);
-	env_line = ft_lst_get_array(env);
 	if (!cmd)
 		return ;
 	if (cmd->builting == FT_ENV)
 		ft_env();
 	else if (cmd->builting == FT_UNSET)
-		ft_unset(&env, env_line, cmd->args);
+		ft_unset(cmd);
 	else if (cmd->builting == FT_ECHO)
 		ft_echo(cmd);
 	else if (cmd->builting == FT_CD)
-		ft_cd(cmd, &env, env_line, &g_msh);
+		ft_cd(cmd);
 	else if (cmd->builting == FT_PWD)
 		ft_pwd();
 	else if (cmd->builting == FT_EXPORT)
-		ft_export(cmd, &env, env_line, &g_msh);
+		ft_export(cmd);
 	else if (cmd->builting == FT_SUBSHELL)
 		ft_subshell(cmd);
 }
 
 void	ft_execute_simple_cmd(t_cmd *cmd)
 {
+	extern t_global	g_msh;
+
 	ft_redirect(cmd);
+	ft_get_envp();
 	if (cmd->builting == FT_NULL)
 		execv(cmd->cmd_name, cmd->args);
 	else
