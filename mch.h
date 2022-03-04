@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 19:17:20 by mehill            #+#    #+#             */
-/*   Updated: 2022/03/04 02:39:53 by mehill           ###   ########.fr       */
+/*   Updated: 2022/03/04 23:28:51 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ typedef struct s_stack
 }				t_stack;
 
 /** tools ***/
-char		*ft_which(char	*cmd, char **envp, t_builtings *builting);
+char		*ft_which(char	*cmd, t_builtings *builting);
 void		ft_free_split(char ***split);
 void		ft_free_args(char ***split, int n);
 t_cmd		*ft_new_cmd(void);

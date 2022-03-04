@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 23:19:04 by mehill            #+#    #+#             */
-/*   Updated: 2022/03/04 01:55:02 by mehill           ###   ########.fr       */
+/*   Updated: 2022/03/04 23:29:53 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,14 @@ static char	*ft_check_possible(char	**paths, char *scmd)
 	return (pcmd);
 }
 
-char	*ft_which(char	*cmd, char **envp, t_builtings *builting)
+char	*ft_which(char	*cmd, t_builtings *builting)
 {
 	char	**paths;
 	char	*scmd;
 	char	*pcmd;
 	char	*path;
 
-	if (!cmd || !envp || !(*envp))
+	if (!cmd)
 		return (NULL);
 	ft_check_builtings(cmd, builting);
 	scmd = ft_strjoin("/", cmd);
