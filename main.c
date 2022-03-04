@@ -14,19 +14,6 @@
 
 t_global	g_msh;
 
-void	execute_cmd_list(t_dlist *cmds)
-{
-	int	status;
-
-	status = 0;
-	while (cmds)
-	{
-		g_msh.pid_fg = ft_execute_cmd(cmds->content, g_msh.ret);
-		cmds = cmds->next;
-		while (wait(&status) > 0)
-			(void) status;
-	}
-}
 
 void	init_global_msh(int argc, char **argv, char **envp)
 {
@@ -65,7 +52,6 @@ void	ft_set_pwd(void)
 
 int	main_helper(void)
 {
-	ft_get_envp();
 	g_msh.pid_fg = 0;
 	if (g_msh.line)
 		free(g_msh.line);
@@ -74,7 +60,6 @@ int	main_helper(void)
 		return (1);
 	if (*g_msh.line == '\n' || *g_msh.line == '\t')
 		return (2);
-	ft_set_pwd();
 	return (0);
 }
 
@@ -89,7 +74,6 @@ int	main(int argc, char **argv, char **envp)
 	g_msh.line = NULL;
 	while (1)
 	{
-		printf("you are in main\n");
 		r = main_helper();
 		if (r == 1)
 			break ;
@@ -101,6 +85,7 @@ int	main(int argc, char **argv, char **envp)
 		//ft_print_cmd_list(lst, 1);
 		while (wait(&status) > 0)
 			(void) status;
+		ft_set_pwd();
 		ft_free_cmd_list(&lst);
 	}
 	if (g_msh.line)

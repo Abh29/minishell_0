@@ -12,20 +12,24 @@
 
 #include "../mch.h"
 
-t_list	*init_env(char **envp)
+void	execute_cmd_list(t_dlist *cmds)
 {
-	t_list	*env;
+	extern t_global	g_msh;
+	int				status;
 
-	env = NULL;
-	while (*envp)
-		ft_lstadd_back(&env, ft_lstnew(ft_strdup(*envp++)));
-	return (env);
+	status = 0;
+	while (cmds)
+	{
+		g_msh.pid_fg = ft_execute_cmd(cmds->content, g_msh.ret);
+		cmds = cmds->next;
+		while (wait(&status) > 0)
+			(void) status;
+		ft_get_envp();
+	}
 }
 
 void	ft_execute_builting(t_cmd *cmd)
 {
-	extern t_global	g_msh;
-
 	if (!cmd)
 		return ;
 	if (cmd->builting == FT_ENV)
@@ -51,7 +55,7 @@ void	ft_execute_simple_cmd(t_cmd *cmd)
 	ft_redirect(cmd);
 	ft_get_envp();
 	if (cmd->builting == FT_NULL)
-		execv(cmd->cmd_name, cmd->args);
+		execve(cmd->cmd_name, cmd->args, g_msh.envp);
 	else
 		ft_execute_builting(cmd);
 	exit(1);

@@ -16,8 +16,6 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <stdio.h>
-# include <editline/readline.h>
-//# include <readline/history.h>
 # include <signal.h>
 # include "libft/libft.h"
 # include "gnl/get_next_line.h"
@@ -149,7 +147,9 @@ char		*ft_get_shell_line(void);
 void		ft_get_envp(void);
 void		ft_set_envp(void);
 char		*ft_getenv(char *key);
+int			ft_dellenv(char *key);
 void		ft_setenv(char *key, char *val);
+int			ft_updatenv(char *key, char *val);
 
 /** lexer **/
 int			ft_check_parnth(char *line, int *pos);

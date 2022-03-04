@@ -62,19 +62,15 @@ void	ft_export(t_cmd *cmd)
 	{
 		while (cmd->args[i])
 		{
-			printf("arg %d %s\n", i, cmd->args[i]);
 			if (ft_strlen(cmd->args[i]) == 0 || cmd->args[i][0] == '=')
 				ft_exit("Error : not a valid indentifier for export !\n", 1);
 			p = ft_strchr(cmd->args[i], '=');
-			printf("p = %s\n", p);
 			if ((!p || *(p + 1) == 0) && i++)
 				continue ;
 			*p = 0;
-			printf("key = %s\nvalue = %s\n", cmd->args[i], p + 1);
 			ft_setenv(cmd->args[i], p + 1);
 			ft_set_envp();
 			i++;
-			exit(0);
 		}
 	}
 	exit(0);
