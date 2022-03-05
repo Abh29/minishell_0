@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 12:14:06 by ddelena           #+#    #+#             */
-/*   Updated: 2022/03/05 00:36:44 by mehill           ###   ########.fr       */
+/*   Updated: 2022/03/05 19:06:49 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	ft_export(t_cmd *cmd)
 			if (ft_strlen(cmd->args[i]) == 0 || cmd->args[i][0] == '=')
 				ft_exit("Error : not a valid indentifier for export !\n", 1);
 			p = ft_strchr(cmd->args[i], '=');
-			if ((!p || *(p + 1) == 0) && i++)
+			if (!p && i++)
 				continue ;
 			*p = 0;
 			ft_setenv(cmd->args[i], p + 1);
