@@ -6,13 +6,12 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 17:16:45 by mehill            #+#    #+#             */
-/*   Updated: 2022/03/04 23:29:03 by mehill           ###   ########.fr       */
+/*   Updated: 2022/03/05 20:16:23 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mch.h"
 
-//TODO: check for builtins
 t_cmd	*ft_fill_cmd(char *line, char **argv, char **envp)
 {
 	t_cmd		*cmd;

@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 23:19:04 by mehill            #+#    #+#             */
-/*   Updated: 2022/03/04 23:29:53 by mehill           ###   ########.fr       */
+/*   Updated: 2022/03/05 20:05:08 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	ft_check_builtings(char *cmd, t_builtings *builting)
 	*builting = FT_NULL;
 	if (!ft_strncmp(cmd, "env", ft_strlen(cmd)))
 		*builting = FT_ENV;
+	else if (!ft_strncmp(cmd, "history", ft_strlen(cmd)))
+		*builting = FT_HISTORY;
 	else if (!ft_strncmp(cmd, "unset", ft_strlen(cmd)))
 		*builting = FT_UNSET;
 	else if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))

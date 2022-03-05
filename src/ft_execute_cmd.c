@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 21:19:33 by mehill            #+#    #+#             */
-/*   Updated: 2022/03/05 00:17:33 by mehill           ###   ########.fr       */
+/*   Updated: 2022/03/05 20:05:36 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	ft_execute_builting(t_cmd *cmd)
 		return ;
 	if (cmd->builting == FT_ENV)
 		ft_env();
+	else if (cmd->builting == FT_HISTORY)
+		ft_history(cmd);
 	else if (cmd->builting == FT_UNSET)
 		ft_unset(cmd);
 	else if (cmd->builting == FT_ECHO)

@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 19:17:20 by mehill            #+#    #+#             */
-/*   Updated: 2022/03/05 01:45:54 by mehill           ###   ########.fr       */
+/*   Updated: 2022/03/05 20:17:01 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef enum e_builtings
 	FT_EXIT,
 	FT_PWD,
 	FT_SUBSHELL,
+	FT_HISTORY,
 	FT_NULL
 }			t_builtings;
 
@@ -101,6 +102,7 @@ typedef struct s_minishell
 	char	buff[4097];
 	int		buff_idx;
 	int		envp_fd;
+	int		his_fd;
 }				t_global;
 
 typedef struct s_stack
@@ -151,6 +153,9 @@ char		*ft_getenv(char *key);
 int			ft_dellenv(char *key);
 void		ft_setenv(char *key, char *val);
 int			ft_updatenv(char *key, char *val);
+void		ft_creat_history(void);
+void		ft_add_history(char *line);
+void		ft_show_history(void);
 
 /** lexer **/
 int			ft_check_parnth(char *line, int *pos);
@@ -206,6 +211,7 @@ void		ft_unset(t_cmd *cmd);
 int			ft_echo(t_cmd *cmd);
 void		ft_export(t_cmd *cmd);
 void		ft_subshell(t_cmd *cmd);
+void		ft_history(t_cmd *cmd);
 
 /** builting utils **/
 int			print_error(void);

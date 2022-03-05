@@ -6,7 +6,7 @@
 /*   By: mehill <mehill@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 21:15:56 by mehill            #+#    #+#             */
-/*   Updated: 2022/03/05 01:39:23 by mehill           ###   ########.fr       */
+/*   Updated: 2022/03/05 20:03:38 by mehill           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	init_global_msh(int argc, char **argv, char **envp)
 	g_msh.buff_idx = 0;
 	g_msh.envp_fd = -1;
 	ft_set_envp();
+	ft_creat_history();
 }
 
 void	handle_sigint(int sig)
@@ -59,6 +60,7 @@ int	main_helper(void)
 		return (1);
 	if (*g_msh.line == '\n' || *g_msh.line == '\t')
 		return (2);
+	ft_add_history(g_msh.line);
 	return (0);
 }
 
